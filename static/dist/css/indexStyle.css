@@ -1,0 +1,255 @@
+/* style.css  */
+
+body {
+    background-color: #0d1117;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+  }
+  
+  
+  .container {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .circular-wheel {
+    width: 7px; /* Adjust size as needed */
+    height: 7px; /* Adjust size as needed */
+    background-color: transparent;
+    border-radius: 50%;
+    margin: -20px auto; /* Adjust margin as needed */
+    position: relative;
+    box-shadow: 0 0 10px 10px #00ff00; /* Neon green glow effect */
+  }
+  
+  .circular-wheel::before {
+    content: "";
+    position: absolute;
+    top: -5px; 
+    left: -5px; 
+    right: -5px; 
+    bottom: -5px; 
+    border: 2px ; /* Adjust border width and color as needed */
+    border-radius: 50%;
+    animation: neon 1.5s infinite alternate; /* Neon animation effect */
+  }
+  
+  @keyframes neon {
+    0% {
+      box-shadow: 0 0 3px 3px #00ff00; /* Initial glow */
+    }
+    100% {
+      box-shadow: 0 0 50px 10px #00ff00; /* Intense glow */
+    }
+  }
+  
+  .sidebar1 {
+    display: inline-block;
+    margin-top: 130px;
+    height: 725px;
+    width: 5px;
+    background: linear-gradient(
+        rgba(57, 211, 83, 0), 
+        #39d353, 
+        #8957e5, 
+        rgba(57, 211, 83, 0)
+    );
+    border-radius: 10px;
+}
+
+.sidebar2 {
+  display: inline-block;
+  margin-top: 870px;
+  margin-left: -5px;
+  height: 250px;
+  width: 7px;
+  background: linear-gradient( #32F0DE,rgba(50, 240, 222, 0)
+  );
+  border-radius: 10px;
+}
+
+.sidebar3 {
+  display: inline-block;
+  margin-top: 1130px;
+  margin-left: -5px;
+  height: 450px;
+  width: 8px;
+  background: linear-gradient(
+      #39d353,  
+      rgba(57, 211, 83, 0)
+  );
+  border-radius: 10px;
+}
+
+.blob-image {
+  position: absolute;
+  top: 200px;
+  right: 0;
+  left: 1250px;
+  z-index: -1;
+  /* Ensure the image stays behind other content */
+  width: 600px; /* Adjust width as needed */
+  height: 600px; /* Adjust height as needed */
+  filter: 
+    drop-shadow(0 0 20px #32F0DE)
+    drop-shadow(0 0 40px #6932F0); /* Neon gradient glow effect using image shape */
+}
+
+.blob-image::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  bottom: -20px;
+  left: -20px;
+  /* Adjust the box-shadow to create the desired neon shadow effect */
+  box-shadow: 0 0 30px 20px #32F0DE, 0 0 40px 30px #6932F0; /* Neon shadow */
+  animation: neon-shadow 1.5s infinite alternate; /* Neon shadow animation */
+}
+
+@keyframes neon-shadow {
+  0% {
+    /* Adjust the box-shadow for the initial glow */
+    box-shadow: 0 0 30px 20px #32F0DE, 0 0 40px 30px #6932F0; /* Initial glow */
+  }
+  100% {
+    box-shadow: 0 0 20px 10px #32F0DE, 0 0 30px 20px #6932F0; /* Intense glow */
+  }
+}
+
+
+.content {
+    padding: 30px;
+    flex-grow: 1;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.logo img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.nav-buttons {
+    display: flex;
+    margin-left: auto;
+}
+
+.nav-buttons button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-buttons button:hover {
+    background-color: white;
+    color: #081131;
+}
+
+.heading {
+    font-size: 65px;
+    font-family: 'Arial', sans-serif;
+}
+
+.search-bar {
+    margin-top: 80px;
+    margin-left: 20% ;
+    max-width: 70%;
+    width: 500px;
+    background-color: white;
+    display: flex; 
+    border-radius: 10px;
+  }
+  
+  .search-bar input[type="text"] {
+    padding: 9px; 
+    width: 300px; 
+    height: 30px;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: white; 
+    color: black; 
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .search-bar input[type="text"]::placeholder {
+    color: black; 
+    opacity: 0.5;
+  }
+  
+  .search-bar button {
+    padding: 11px 20px;
+    background-color: #742EF2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-left: auto; /* Push the button to the right */
+  }
+  
+  .search-bar button:hover {
+    background-color: #8957e5;
+  }
+
+
+  .featuring {
+    margin-top: 70px;
+    color: white;
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 400; 
+    font-size: 26px;
+  }
+
+  .trending{
+    padding: 10px;
+    color: #742EF2;
+    text-decoration: none;
+    font-size: 45px;
+    font-family: "Open Sans", sans-serif;
+    font-variation-settings:
+    "width" 100;
+  }
+
+  .project{
+    padding: 10px;
+    color:#32F0DE;
+    text-decoration: none;
+    font-size: 45px;
+    font-family: "Open Sans", sans-serif;
+    font-variation-settings:
+    "width" 100;
+  }
+
+  .research {
+    padding: 10px;
+    color: #39d353;
+    text-decoration: none;
+    font-size: 45px;
+    font-family: "Open Sans", sans-serif;
+    font-variation-settings:
+    "width" 100;
+  }
+  
