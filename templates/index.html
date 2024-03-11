@@ -1,59 +1,104 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trendmia</title>
-<link rel="stylesheet" type="text/css" href="static/dist/css/indexStyle.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;700&display=swap">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trendmia</title>
+  <link rel="stylesheet" type="text/css" href="static/dist/css/indexStyle.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;700&display=swap">
 
 </head>
+
 <body>
-<div class="navbar">
+  <div class="navbar">
     <div class="logo">
       <img src="static/dist/images/logo.svg" alt="Logo">
       Trendmia
     </div>
     <div class="nav-buttons">
-      <button>Sign-In</button>
-      <button>Sign-Up</button>
+      <button id="signin-button">Sign-In</button>
+      <button id="signup-button">Sign-Up</button>
     </div>
-  </div>
-<div class="container">
-  <div class="sidebar1">
-    <div class="circular-wheel"></div> <!-- Circular wheel -->
   </div>
   <div class="container">
-    <div class="sidebar2">
+    <div class="sidebar1">
+      <div class="circular-wheel"></div> <!-- Circular wheel -->
     </div>
-    <div class="sidebar3">
-    </div>
-    <div><img src="static/dist/images/magicpattern-blob-1708592793397.svg" alt="Blob Image" class="blob-image">
-    </div>
-    <div class="content">
-      <div>
-        <h1 class="heading">Let's Collaborate. Create. Elevate beyond the Ordinary!</h1>
-        <ul>
-          <li>A Collaborative Platform for Developers</li>
-          <li>Find and share your projects with the developer community.</li>
-          <li>Get feedback on your work from others who have similar interests.</li>
-          <li>See whats trending projects and Create a Unique one! </li>
-        </ul>
+    <div class="container">
+      <div class="sidebar2">
       </div>
-    <div class="search-bar">
-      <input type="text" placeholder="Is your project unique?">
-      <button>Check Now</button>
+      <div class="sidebar3">
+      </div>
+      <div><img src="static/dist/images/magicpattern-blob-1708592793397.svg" alt="Blob Image" class="blob-image">
+      </div>
+      <div class="content">
+        <div>
+          <h1 class="heading">Let's Collaborate. Create. Elevate beyond the Ordinary!</h1>
+          <ul>
+            <li>A Collaborative Platform for Developers</li>
+            <li>Find and share your projects with the developer community.</li>
+            <li>Get feedback on your work from others who have similar interests.</li>
+            <li>See whats trending projects and Create a Unique one! </li>
+          </ul>
+        </div>
+        <div class="search-bar">
+          <input type="text" placeholder="Is your project unique?">
+          <button>Check Now</button>
+        </div>
+        <div>
+          <h1 class="featuring">Features</h1>
+          <div>
+            <h1 class="trending">Trending projects</h1>
+          </div>
+          <div>
+            <h1 class="project">Create-Collab-Browse project</h1>
+          </div>
+          <div>
+            <h1 class="research">Research &amp; Innovation (upcoming)</h1>
+          </div>
+        </div>
+        <!-- Bottom Sign-In section -->
+        <div id="signup-section"> <!-- Add id attribute for navigation -->
+          <h1>Sign-Up</h1>
+          <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign-Up</button>
+          </form>
+        </div>
+        <div id="signin">
+          <h1>Sign-In</h1>
+          <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ login_form.as_p }}
+            <button type="submit">Sign-In</button>
+          </form>
+        </div>
+
+      </div>
     </div>
-    <div>
-      <h1 class="featuring">Features</h1>
+    <div class="wave-footer">
     </div>
-    <div><h1 class="trending">Trending projects</h1></div>
-    <div><h1 class="project">Create-Collab-Browse project</h1></div>
-    <div><h1 class="research">Research &amp; Innovation (upcoming)</h1></div>
-  </div>
-</div>
-<div class="wave-footer">
-</div>
+
+    <!-- JavaScript code -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var signinButton = document.getElementById('signin-button');
+        var signupButton = document.getElementById('signup-button');
+
+        signinButton.addEventListener('click', function () {
+          var signinSection = document.getElementById('signin-section');
+          signinSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        signupButton.addEventListener('click', function () {
+          var signupSection = document.getElementById('signup-section');
+          signupSection.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    </script>
 </body>
+
 </html>
