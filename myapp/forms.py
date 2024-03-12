@@ -20,7 +20,7 @@ class SignUpForm(UserCreationForm):
         return password2
 
     def save(self, commit=True):
-        user = super(SignUpForm, self).save(commit=False)
+        user = super().save(commit=False)
         user.email = self.cleaned_data['email']
         user.name = self.cleaned_data['name']
         if commit:
