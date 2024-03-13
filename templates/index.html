@@ -1,3 +1,4 @@
+<!-- D:\Code Playground\demo django\myproject\templates\index.html -->
 <!-- index.html -->
 
 {% load static %}
@@ -10,7 +11,6 @@
   <title>Trendmia</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;700&display=swap">
   <link rel="stylesheet" type="text/css" href="{% static 'dist/css/indexStyle.css' %}">
-  <img src="{% static 'dist/images/logo.svg' %}" alt="Logo">
   <img src="{% static 'dist/images/magicpattern-blob-1708592793397.svg' %}" alt="Blob Image" class="blob-image">
 </head>
 
@@ -62,46 +62,38 @@
             <h1 class="research">Research &amp; Innovation (upcoming)</h1>
           </div>
         </div>
-        <!-- Bottom Sign-In section -->
-        <div id="signup-section"> <!-- Add id attribute for navigation -->
-          <h1>Sign-Up</h1>
-          <form method="POST" action="{% url 'signup' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Sign-Up</button>
-          </form>
-        </div>
-        <div id="signin">
-          <h1>Sign-In</h1>
-          <form method="POST" action="{% url 'login' %}">
-            {% csrf_token %}
-            {{ login_form.as_p }}
-            <button type="submit">Sign-In</button>
-          </form>
-        </div>
+        <div class="content">
+          <div class="flashcard-wrapper">
+            <div class="flashcard">
+              <!-- Sign-Up Section -->
+              <div id="signup-section" class="flashcard-content">
+                <h1>Sign-Up</h1>
+                <form method="POST" action="{% url 'signup' %}">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <button type="submit">Sign-Up</button>
+                </form>
+                <p>Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+              </div>
+            </div>
+          </div>
 
+        </div>
       </div>
-    </div>
-    <div class="wave-footer">
-    </div>
+      <div class="wave-footer">
+      </div>
 
-    <!-- JavaScript code -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var signinButton = document.getElementById('signin-button');
-        var signupButton = document.getElementById('signup-button');
+      <!-- JavaScript code -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          var signupButton = document.getElementById('signup-button');
 
-        signinButton.addEventListener('click', function () {
-          var signinSection = document.getElementById('signin-section');
-          signinSection.scrollIntoView({ behavior: 'smooth' });
+          signupButton.addEventListener('click', function () {
+            var signupSection = document.getElementById('signup-section');
+            signupSection.scrollIntoView({ behavior: 'smooth' });
+          });
         });
-
-        signupButton.addEventListener('click', function () {
-          var signupSection = document.getElementById('signup-section');
-          signupSection.scrollIntoView({ behavior: 'smooth' });
-        });
-      });
-    </script>
+      </script>
 </body>
 
 </html>
