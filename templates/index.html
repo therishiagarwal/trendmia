@@ -100,8 +100,15 @@
             var signupSection = document.getElementById('signup-section');
             signupSection.scrollIntoView({ behavior: 'smooth' });
           });
+
+          var signinButton = document.getElementById('signin-button');
+
+          signinButton.addEventListener('click', function () {
+            window.location.href = "{% url 'login' %}";
+          });
         });
       </script>
+
 </body>
 
 </html>

@@ -1,0 +1,112 @@
+/* static\dist\css\loginstyle.css */
+
+body {
+    background-color: #0d1117;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.content {
+    max-width: 500px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.login-flashcard {
+    max-width: 400px; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the flashcard horizontally */
+  }
+
+.flashcard {
+    max-width: 400px !important;
+    background-color: #1A1C20;
+    color: #d4d4d4;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    backdrop-filter: blur(10%);
+    border: 2px solid white;
+}
+
+.flashcard-content {
+    position: relative;
+    z-index: 1;
+    font-size: 20px;
+}
+
+.flashcard-content h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-top: 0;
+}
+
+.flashcard-content p {
+    font-size: 18px;
+}
+
+.flashcard-content form {
+    margin-bottom: 30px;
+}
+
+.flashcard-content input[type="text"],
+.flashcard-content input[type="password"] {
+    width: calc(100% - 30px);
+    /* Adjust width */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid white;
+    /* Add white border */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #0d1117;
+    /* Change background color */
+    color: #fff;
+    /* Change text color to white */
+}
+
+.flashcard-content button[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.flashcard-content button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.flashcard-content a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.flashcard-content a:hover {
+    color: #45a049;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    width: 40px;
+    margin-right: 10px;
+}

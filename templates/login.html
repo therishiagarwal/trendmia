@@ -1,11 +1,47 @@
+<!-- D:\Code Playground\demo django\myproject\templates\login.html -->
+<!-- login.html -->
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Trendmia</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;700&display=swap">
+  <link rel="stylesheet" type="text/css" href="{% static 'dist/css/indexStyle.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'dist/css/loginStyle.css' %}"> <!-- Include the custom CSS file -->
 </head>
+
 <body>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur quasi excepturi itaque quod id. Corporis asperiores sequi consequuntur quo eligendi. Vitae consequatur placeat sunt voluptatibus hic iusto ullam aperiam veniam.</p>
+  <div class="container">
+    <div class="content">
+      <div class="flashcard login-flashcard"> <!-- Add custom class 'login-flashcard' -->
+        <!-- Login Section -->
+        <div id="login-section" class="flashcard-content">
+          <div class="logo">
+            <img src="{% static '/dist/images/logo.svg' %}" alt="Logo">
+            Trendmia
+          </div>
+          <h1>Sign-In</h1>
+          <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="id_username">Username or Email:</label>
+              {{ login_form.username }}
+            </div>
+            <div class="form-group">
+              <label for="id_password">Password:</label>
+              {{ login_form.password }}
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+          <p>New user? <a href="{% url 'signup' %}">Sign up here</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
