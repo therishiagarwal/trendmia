@@ -17,10 +17,11 @@
 <body>
   <div class="navbar">
     <div class="logo">
-      <img src="static/dist/images/logo.svg" alt="Logo">
+      <img src="{% static '/dist/images/logo.svg' %}" alt="Logo">
       Trendmia
     </div>
     <div class="nav-buttons">
+      <button id="home-button">Home</button>
       <button id="signin-button">Sign-In</button>
       <button id="signup-button">Sign-Up</button>
     </div>
@@ -34,7 +35,8 @@
       </div>
       <div class="sidebar3">
       </div>
-      <div><img src="static/dist/images/magicpattern-blob-1708592793397.svg" alt="Blob Image" class="blob-image">
+      <div><img src="{% static '/dist/images/magicpattern-blob-1708592793397.svg' %}" alt="Blob Image"
+          class="blob-image">
       </div>
       <div class="content">
         <div>
@@ -71,7 +73,7 @@
                 <form method="POST" action="{% url 'signup' %}">
                   {% csrf_token %}
                   {{ form.as_p }}
-                  <button type="submit">Sign-Up</button>
+                  <button type="submit">Submit</button>
                 </form>
                 <p>Already have an account? <a href="{% url 'login' %}">Log In</a></p>
               </div>
@@ -86,6 +88,12 @@
       <!-- JavaScript code -->
       <script>
         document.addEventListener('DOMContentLoaded', function () {
+          var homeButton = document.getElementById('home-button');
+
+          homeButton.addEventListener('click', function () {
+            window.location.href = "/";
+          });
+
           var signupButton = document.getElementById('signup-button');
 
           signupButton.addEventListener('click', function () {

@@ -179,6 +179,12 @@ body {
   color: #081131;
 }
 
+.nav-buttons button:hover {
+  background-color: white;
+  color: #081131;
+}
+
+
 .heading {
   font-size: 65px;
   font-family: 'Arial', sans-serif;
