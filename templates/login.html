@@ -17,7 +17,8 @@
 <body>
   <div class="container">
     <div class="content">
-      <div class="flashcard login-flashcard"> <!-- Add custom class 'login-flashcard' -->
+      <button id="home-button" class="home-button">Home</button> <!-- Add home button -->
+      <div class="flashcard login-flashcard">
         <!-- Login Section -->
         <div id="login-section" class="flashcard-content">
           <div class="logo">
@@ -42,6 +43,17 @@
       </div>
     </div>
   </div>
+
+  <!-- JavaScript code -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var homeButton = document.getElementById('home-button');
+
+      homeButton.addEventListener('click', function () {
+        window.location.href = "/"; // Redirect to the index page
+      });
+    });
+  </script>
 </body>
 
 </html>

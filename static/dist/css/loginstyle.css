@@ -20,20 +20,47 @@ body {
     padding: 0 20px;
 }
 
+.home-button {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 20px;
+    right: 20px; /* Position the home button at the top right corner */
+  }
+  
+  .home-button:hover {
+    background-color: white;
+    color: #081131;
+  }
+
 .login-flashcard {
     max-width: 400px; /* Adjust the width as needed */
     margin: 0 auto; /* Center the flashcard horizontally */
   }
 
-.flashcard {
-    max-width: 400px !important;
+  .flashcard {
+    max-width: 400px;
     background-color: #1A1C20;
     color: #d4d4d4;
     border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     padding: 40px;
-    backdrop-filter: blur(10%);
     border: 2px solid white;
+    position: relative;
+    animation: glowBackground 4s ease-in-out infinite alternate;
+}
+
+@keyframes glowBackground {
+    0% {
+        box-shadow: 0 0 50px rgb(55, 40, 94);
+    }
+    100% {
+        box-shadow: 0 0 20px rgb(255, 255, 255);
+    }
 }
 
 .flashcard-content {
