@@ -40,28 +40,44 @@
       </div>
       <div class="content">
         <div>
-          <h1 class="heading">Let's Collaborate. Create. Elevate beyond the Ordinary!</h1>
+          <h1 class="heading">Let's Collaborate-Create-Elevate beyond the Ordinary!</h1>
           <ul>
-            <li>A Collaborative Platform for Developers</li>
-            <li>Find and share your projects with the developer community.</li>
-            <li>Get feedback on your work from others who have similar interests.</li>
-            <li>See whats trending projects and Create a Unique one! </li>
+            <h3 class="intro">Explore Trendmia's Unique AI-powered Platform to Validated and Amplify your Project Ideas.
+            </h3>
           </ul>
         </div>
-        <div class="search-bar">
-          <input type="text" placeholder="Is your project unique?">
-          <button>Check Now</button>
-        </div>
         <div>
-          <h1 class="featuring">Features</h1>
           <div>
-            <h1 class="trending">Trending projects</h1>
+            <h1 class="research">AI-Driven Idea Validation:</h1>
+            <div class="feature-description">
+              <p>Leverage Trendmia's powerful AI algorithms to validate the uniqueness and viability of your ideas,
+                ensuring you stand out in the crowd.</p>
+            </div>
           </div>
           <div>
-            <h1 class="project">Create-Collab-Browse project</h1>
+            <h1 class="trending">Real-time Trend Analysis:</h1>
+            <div class="feature-description">
+              <p>Stay ahead of the curve with Trendmia's real-time trend analysis, enabling you to identify emerging
+                project fields and seize new opportunities.</p>
+              <div class="search-bar">
+                <div class="trending-text">See what's trending  → </div>
+                <button id="check-now-button">Check Now</button>
+              </div>
+            </div>
           </div>
           <div>
-            <h1 class="research">Research &amp; Innovation (upcoming)</h1>
+            <h1 class="project">Collaborative Project Spaces:</h1>
+            <div class="feature-description">
+              <p>Engage in seamless collaboration within dedicated project spaces, where you can connect with
+                like-minded individuals, share insights, and drive collective innovation.</p>
+            </div>
+          </div>
+          <div>
+            <h1 class="research">Research &amp; Innovation (upcoming):</h1>
+            <div class="feature-description">
+              <p>Unite with peers in dedicated spaces to brainstorm, share insights, and drive transformative research
+                forward.</p>
+            </div>
           </div>
         </div>
         <div class="content">
@@ -105,6 +121,16 @@
 
           signinButton.addEventListener('click', function () {
             window.location.href = "{% url 'login' %}";
+          });
+
+          var trendingText = document.querySelector('.trending-text');
+          trendingText.addEventListener('click', function () {
+            window.location.href = "/trending"; // Redirect to trending page
+          });
+
+          var checkNowButton = document.getElementById('check-now-button');
+          checkNowButton.addEventListener('click', function () {
+            window.location.href = "/trending"; // Redirect to trending page
           });
         });
       </script>

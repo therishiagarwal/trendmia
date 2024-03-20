@@ -81,7 +81,7 @@ body {
   display: inline-block;
   margin-top: 1130px;
   margin-left: -5px;
-  height: 450px;
+  height: 250px;
   width: 8px;
   background: linear-gradient(#39d353,
       rgba(57, 211, 83, 0));
@@ -192,30 +192,25 @@ body {
 
 .search-bar {
   margin-top: 80px;
-  margin-left: 20%;
+  margin-left: 10%;
   max-width: 70%;
   width: 500px;
   background-color: white;
   display: flex;
   border-radius: 10px;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
 }
 
-.search-bar input[type="text"] {
-  padding: 9px;
-  width: 300px;
-  height: 30px;
-  border: 2px solid white;
-  border-radius: 5px;
-  background-color: white;
-  color: black;
-  font-size: 16px;
-  outline: none;
+.trending-text {
+  font-size: 20px; 
+  text-align: center; /* Center text horizontally */
+  color: rgb(0, 0, 0); 
+  font-weight: bold;
 }
 
-.search-bar input[type="text"]::placeholder {
-  color: black;
-  opacity: 0.5;
-}
+
+
 
 .search-bar button {
   padding: 11px 20px;
@@ -231,6 +226,11 @@ body {
 
 .search-bar button:hover {
   background-color: #8957e5;
+}
+
+.intro {
+  font-size: 20px;
+  color: #ddd9d9e5;
 }
 
 
@@ -271,6 +271,15 @@ body {
   font-variation-settings:
     "width" 100;
 }
+
+.feature-description {
+  font-size: 20px;
+  width: 60%;
+  margin: 20px 0 20px 50px;
+  line-height: 1.5 ;
+  color: #ddd9d9e5;
+}
+
 
 .flashcard-wrapper {
   position: relative;
