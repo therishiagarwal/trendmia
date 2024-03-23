@@ -1,11 +1,72 @@
+<!-- D:\Code Playground\demo django\myproject\templates\feed.html -->
+<!-- feed.html -->
+
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Feed | Trendmia</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'dist/css/feedStyle.css' %}">
 </head>
+
 <body>
-    <p>This is the feed page</p>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="container">
+            <div class="logo">
+                <!-- Your logo image -->
+                <img src="{% static 'dist/images/logo.svg' %}" alt="Logo">
+            </div>
+            <div class="right-section">
+                <button id="home-button">Home</button>
+                <button id="notification-button">Notification</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Left container for the profile flashcard -->
+        <div class="left-container">
+            <!-- Profile flashcard -->
+            <div class="profile-flashcard">
+                {% if user.is_authenticated %}
+                <p>Welcome, {{ user.name }} !</p>
+                {% else %}
+                <p>Welcome, Guest!</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Container for the feed section -->
+        <div class="feed-container">
+            <!-- Feed section -->
+            <div class="feed-section">
+                <!-- Post form -->
+                <div class="post-form">
+                    <h2>Post about your project:</h2>
+                    <form action="{% url 'post_project' %}" method="POST">
+                        {% csrf_token %}
+                        <textarea name="project_description" rows="2" cols="50"
+                            placeholder="Enter your project description..."></textarea>
+                    </form>
+                </div>
+
+                <!-- Posts by other users -->
+                <div class="post-list">
+                    <h2>Recent posts:</h2>
+                    <!-- Display posts here -->
+                    <!-- Example post -->
+                    <div class="post">
+                        <p>Project: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p>Posted by: User123</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

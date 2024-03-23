@@ -1,0 +1,112 @@
+/* feedStyle.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Change the font family as needed */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px; /* Adjust the height of the logo as needed */
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+#home-button,
+#notification-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.left-container {
+    width: 250px; 
+    float: left;
+}
+
+.profile-flashcard {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.feed-container {
+    border: 1px solid #ccc;
+    max-width: 800px; 
+    margin: 0 auto; 
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.feed-post {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px; 
+}
+
+.feed-post h2 {
+    margin-top: 0;
+}
+
+.feed-post p {
+    margin-bottom: 10px;
+}
+
+.feed-post img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.feed-post .post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feed-post .post-actions button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.feed-post .post-actions button:hover {
+    background-color: #555;
+}
+
+.post-form {
+    margin-bottom: 20px; /* Adjust the bottom margin as needed */
+}
+
+.post-form textarea {
+    width: 100%;
+    height: 50px; /* Adjust the height of the textarea as needed */
+    resize: vertical;
+}
+

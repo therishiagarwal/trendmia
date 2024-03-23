@@ -3,6 +3,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from myapp.models import CustomUser
+from .models import Project
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="Email")
@@ -29,3 +30,12 @@ class SignUpForm(UserCreationForm):
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(label="Username or Email")
     password = forms.CharField(label="Password", widget=forms.PasswordInput())
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['title', 'description', 'image', 'tags']  # Adjust the fields as per your Project model
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

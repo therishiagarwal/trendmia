@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import SignUpForm, UserLoginForm
+from .forms import SignUpForm, UserLoginForm, ProjectForm
 from datetime import datetime
 from .models import CustomUser
 import os
@@ -75,3 +75,20 @@ def contact(request):
 def feed(request):
     # Your view logic here
     return render(request, 'feed.html')
+
+def post_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            # Save the project data to the database
+            project = form.save(commit=False)
+            project.user = request.user  # Assuming you have a user field in your project model
+            project.save()
+            messages.success(request, 'Your project has been posted successfully!')
+            return redirect('feed')  # Redirect back to the feed page
+        else:
+            messages.error(request, 'Error posting your project. Please check the form data.')
+            return redirect('feed')  # Redirect back to the feed page with an error message
+    else:
+        form = ProjectForm()  # Create a new instance of the project form
+    return render(request, 'feed.html', {'form': form})
