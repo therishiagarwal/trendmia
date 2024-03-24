@@ -1,7 +1,7 @@
 # myapp/views.py
 
-from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect, HttpResponse, redirect
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import SignUpForm, UserLoginForm, ProjectForm
 from datetime import datetime
@@ -61,6 +61,10 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'login_form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 
 

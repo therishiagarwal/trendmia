@@ -31,13 +31,20 @@
         <!-- Left container for the profile flashcard -->
         <div class="left-container">
             <!-- Profile flashcard -->
-            <div class="profile-flashcard">
+            <div class="profile-flashcard" id="profileFlashcard">
                 {% if user.is_authenticated %}
-                <p>Welcome, {{ user.name }} !</p>
+                    <p class="welcome-message">Welcome, {{ user.name }}!</p>
+                    <div class="dropdown">
+                        <button class="dropbtn" id="profileDropdownBtn">&#9660;</button>
+                        <div class="dropdown-content" id="profileDropdownContent">
+                            <a href="{% url 'logout' %}" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
                 {% else %}
-                <p>Welcome, Guest!</p>
+                    <p class="welcome-message">Welcome, Guest!</p>
                 {% endif %}
-            </div>
+            </div>            
+
         </div>
 
         <!-- Container for the feed section -->
@@ -67,6 +74,31 @@
             </div>
         </div>
     </div>
+    <!-- JavaScript code -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var homeButton = document.getElementById('home-button');
+
+            homeButton.addEventListener('click', function () {
+                window.location.href = "/feed";
+            });
+        })
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var profileDropdownBtn = document.getElementById('profileDropdownBtn');
+            var profileDropdownContent = document.getElementById('profileDropdownContent');
+
+            // Hide the logout button initially
+            profileDropdownContent.style.display = 'none';
+
+            profileDropdownBtn.addEventListener('click', function () {
+                // Toggle visibility of the logout button
+                profileDropdownContent.style.display = profileDropdownContent.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+
+
+    </script>
 </body>
 
 </html>
