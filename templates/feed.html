@@ -21,6 +21,7 @@
                 <!-- Your logo image -->
                 <img src="{% static 'dist/images/logo.svg' %}" alt="Logo">
             </div>
+            <div class="project-search">Search Projects Here</div>
             <div class="right-section">
                 <button id="home-button">Home</button>
                 <button id="notification-button">Notification</button>
@@ -33,17 +34,17 @@
             <!-- Profile flashcard -->
             <div class="profile-flashcard" id="profileFlashcard">
                 {% if user.is_authenticated %}
-                    <p class="welcome-message">Welcome, {{ user.name }}!</p>
-                    <div class="dropdown">
-                        <button class="dropbtn" id="profileDropdownBtn">&#9660;</button>
-                        <div class="dropdown-content" id="profileDropdownContent">
-                            <a href="{% url 'logout' %}" id="logoutBtn">Logout</a>
-                        </div>
+                <p class="welcome-message">Welcome, {{ user.name }}!</p>
+                <div class="dropdown">
+                    <button class="dropbtn" id="profileDropdownBtn">&#9660;</button>
+                    <div class="dropdown-content" id="profileDropdownContent">
+                        <a href="{% url 'logout' %}" id="logoutBtn">Logout</a>
                     </div>
+                </div>
                 {% else %}
-                    <p class="welcome-message">Welcome, Guest!</p>
+                <p class="welcome-message">Welcome, Guest!</p>
                 {% endif %}
-            </div>            
+            </div>
 
         </div>
 
@@ -56,8 +57,7 @@
                     <h2>Post about your project:</h2>
                     <form action="{% url 'post_project' %}" method="POST">
                         {% csrf_token %}
-                        <textarea name="project_description" rows="2" cols="50"
-                            placeholder="Enter your project description..."></textarea>
+                        <button type="submit" class="create-project-button">Create Project</button>
                     </form>
                 </div>
 
