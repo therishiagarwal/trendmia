@@ -92,14 +92,35 @@ def post_project(request):
             try:
                 project = form.save(commit=False)
                 project.user = request.user
-                project.created_at = datetime.now()  # Ensure 'created_at' is auto-generated in the model
+                project.created_at = datetime.now()  
+                
+                # Upload the image file to Supabase storage
+                media = request.FILES.get('media')
+                if media:
+                    media_name = f"project_media_{datetime.now().strftime('%Y%m%d%H%M%S')}.png"
+                    # Change extension if needed
+                    media_url = upload_to_supabase_storage(media, media_name)
+                    project.media = media_url
+                
                 project.save()
-                messages.success(request, 'Project posted successfully.')
+                messages.success(request, 'Post completed.')  # Indicate successful post
                 return HttpResponseRedirect('/feed')
             except Exception as e:
                 messages.error(request, 'An error occurred while posting the project.')
                 print(e)  # Print the exception for debugging
+        else:
+            messages.error(request, 'Invalid form data. Please check your inputs.')
     else:
-         messages.error(request, 'An error occurred while posting the project.')
-         form = ProjectForm()
+        form = ProjectForm()
     return render(request, 'feed.html', {'form': form})
+
+# Function to upload file to Supabase storage
+def upload_to_supabase_storage(file, file_name):
+    try:
+        data = supabase_client.storage.from_("trendmia_post_image").upload(file_name, file)
+        if data['data']['Key']:
+            return data['data']['Key']
+        else:
+            raise Exception("File upload failed.")
+    except Exception as e:
+        raise e
