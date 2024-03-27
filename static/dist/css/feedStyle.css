@@ -30,10 +30,11 @@ body {
 .project-search{
     background-color: whitesmoke;
     border-radius: 50px;
-    color: black;
+    color: rgb(83, 79, 79);
     width: 30%;
     height: 25px;
     padding: auto;
+    text-align:center;
 }
 
 .right-section {
@@ -182,3 +183,27 @@ body {
     display: block;
 }
 
+#mediaPreviewContainer {
+    width: 300px;
+    height: 200px;
+    border: 1px solid #ccc;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mediaPreviewItem {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    margin: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.mediaPreviewItem img,
+.mediaPreviewItem video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

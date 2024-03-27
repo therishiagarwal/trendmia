@@ -55,12 +55,25 @@
                 <!-- Post form -->
                 <div class="post-form">
                     <h2>Post about your project:</h2>
-                    <form action="{% url 'post_project' %}" method="POST">
+                    <!-- "Create Project" button -->
+                    <div class="create-project-button-container">
+                        <button id="create-project-button" class="create-project-button">Create Project</button>
+                    </div>
+                    <form id="projectForm" method="POST" style="display: none;">
                         {% csrf_token %}
-                        <button type="submit" class="create-project-button">Create Project</button>
+                        <input type="file" name="media" id="mediaInput" accept="image/*,video/*" multiple><br>
+                        <div id="mediaPreviewContainer"></div>
+                        <input type="text" name="heading" placeholder="Heading"><br>
+                        <input type="text" name="project_name" placeholder="Project Name"><br>
+                        <textarea name="project_description" rows="4" placeholder="Project Description"></textarea><br>
+                        <input type="text" name="category" placeholder="Category"><br>
+                        <select name="status">
+                            <option value="ongoing">Ongoing</option>
+                            <option value="completed">Completed</option>
+                        </select><br>
+                        <button type="submit" class="submit-project-button">Submit</button>
                     </form>
                 </div>
-
                 <!-- Posts by other users -->
                 <div class="post-list">
                     <h2>Recent posts:</h2>
@@ -74,6 +87,7 @@
             </div>
         </div>
     </div>
+
     <!-- JavaScript code -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -94,6 +108,69 @@
             profileDropdownBtn.addEventListener('click', function () {
                 // Toggle visibility of the logout button
                 profileDropdownContent.style.display = profileDropdownContent.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+        // for the post form 
+        document.addEventListener('DOMContentLoaded', function () {
+            var createProjectButton = document.getElementById('create-project-button');
+            var projectForm = document.getElementById('projectForm');
+
+            // Hide the form initially
+            projectForm.style.display = 'none';
+
+            // Add click event listener to the button
+            createProjectButton.addEventListener('click', function () {
+                // Toggle visibility of the form
+                projectForm.style.display = projectForm.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var mediaInput = document.getElementById('mediaInput');
+            var mediaPreviewContainer = document.getElementById('mediaPreviewContainer');
+
+            // Add change event listener to the file input
+            mediaInput.addEventListener('change', function (event) {
+                // Clear existing previews
+                mediaPreviewContainer.innerHTML = '';
+
+                // Loop through selected files
+                for (var i = 0; i < event.target.files.length; i++) {
+                    var file = event.target.files[i];
+
+                    // Check if a file is selected
+                    if (file) {
+                        var fileType = file.type;
+
+                        // Create preview element
+                        var previewElement = document.createElement('div');
+                        previewElement.classList.add('mediaPreviewItem');
+
+                        // Check if the selected file is an image
+                        if (fileType.startsWith('image/')) {
+                            // Display image preview
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                var imgElement = document.createElement('img');
+                                imgElement.src = e.target.result;
+                                previewElement.appendChild(imgElement);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                        // Check if the selected file is a video
+                        else if (fileType.startsWith('video/')) {
+                            // Display video preview
+                            var videoElement = document.createElement('video');
+                            videoElement.src = URL.createObjectURL(file);
+                            videoElement.controls = true;
+                            videoElement.autoplay = true;
+                            previewElement.appendChild(videoElement);
+                        }
+
+                        // Append preview element to container
+                        mediaPreviewContainer.appendChild(previewElement);
+                    }
+                }
             });
         });
 

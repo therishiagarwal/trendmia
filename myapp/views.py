@@ -1,14 +1,17 @@
 # myapp/views.py
 
-from django.shortcuts import render, redirect, HttpResponse, redirect
+from django.shortcuts import render, redirect, HttpResponse,render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.db import transaction
 from .forms import SignUpForm, UserLoginForm, ProjectForm
 from datetime import datetime
-from .models import CustomUser
+from .models import CustomUser,Project
 import os
 import supabase
-from supabase import create_client, Client
 
 # Initialize Supabase client
 supabase_url = 'https://oypasfbahsankiotfziv.supabase.co'
@@ -80,19 +83,23 @@ def feed(request):
     # Your view logic here
     return render(request, 'feed.html')
 
+
+@login_required
 def post_project(request):
     if request.method == 'POST':
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            # Save the project data to the database
-            project = form.save(commit=False)
-            project.user = request.user  # Assuming you have a user field in your project model
-            project.save()
-            messages.success(request, 'Your project has been posted successfully!')
-            return redirect('feed')  # Redirect back to the feed page
-        else:
-            messages.error(request, 'Error posting your project. Please check the form data.')
-            return redirect('feed')  # Redirect back to the feed page with an error message
+            try:
+                project = form.save(commit=False)
+                project.user = request.user
+                project.created_at = datetime.now()  # Ensure 'created_at' is auto-generated in the model
+                project.save()
+                messages.success(request, 'Project posted successfully.')
+                return HttpResponseRedirect('/feed')
+            except Exception as e:
+                messages.error(request, 'An error occurred while posting the project.')
+                print(e)  # Print the exception for debugging
     else:
-        form = ProjectForm()  # Create a new instance of the project form
+         messages.error(request, 'An error occurred while posting the project.')
+         form = ProjectForm()
     return render(request, 'feed.html', {'form': form})
