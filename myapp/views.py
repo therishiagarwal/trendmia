@@ -5,12 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.db import transaction
+from django.http import JsonResponse
 from .forms import SignUpForm, UserLoginForm, ProjectForm
 from datetime import datetime
-from .models import CustomUser,Project
-import os
 import supabase
 
 # Initialize Supabase client
@@ -83,44 +80,24 @@ def feed(request):
     # Your view logic here
     return render(request, 'feed.html')
 
-
 @login_required
 def post_project(request):
     if request.method == 'POST':
-        form = ProjectForm(request.POST, request.FILES)
+        form = ProjectForm(request.POST)
         if form.is_valid():
             try:
                 project = form.save(commit=False)
                 project.user = request.user
                 project.created_at = datetime.now()  
-                
-                # Upload the image file to Supabase storage
-                media = request.FILES.get('media')
-                if media:
-                    media_name = f"project_media_{datetime.now().strftime('%Y%m%d%H%M%S')}.png"
-                    # Change extension if needed
-                    media_url = upload_to_supabase_storage(media, media_name)
-                    project.media = media_url
-                
-                project.save()
-                messages.success(request, 'Post completed.')  # Indicate successful post
-                return HttpResponseRedirect('/feed')
-            except Exception as e:
-                messages.error(request, 'An error occurred while posting the project.')
-                print(e)  # Print the exception for debugging
-        else:
-            messages.error(request, 'Invalid form data. Please check your inputs.')
-    else:
-        form = ProjectForm()
-    return render(request, 'feed.html', {'form': form})
+                project.save()  # Save project data to the database
 
-# Function to upload file to Supabase storage
-def upload_to_supabase_storage(file, file_name):
-    try:
-        data = supabase_client.storage.from_("trendmia_post_image").upload(file_name, file)
-        if data['data']['Key']:
-            return data['data']['Key']
+                return JsonResponse({'success': True})  # Send JSON response indicating success
+            except Exception as e:
+                # Handle errors
+                return JsonResponse({'success': False, 'error': str(e)})
         else:
-            raise Exception("File upload failed.")
-    except Exception as e:
-        raise e
+            # Form is invalid, return error response
+            return JsonResponse({'success': False, 'error': 'Invalid form data'})
+    else:
+        # Method is not POST, return error response
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})

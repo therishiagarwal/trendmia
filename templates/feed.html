@@ -59,10 +59,8 @@
                     <div class="create-project-button-container">
                         <button id="create-project-button" class="create-project-button">Create Project</button>
                     </div>
-                    <form id="projectForm" method="POST" style="display: none;">
+                    <form id="projectForm" method="POST">
                         {% csrf_token %}
-                        <input type="file" name="media" id="mediaInput" accept="image/*,video/*" multiple><br>
-                        <div id="mediaPreviewContainer"></div>
                         <input type="text" name="heading" placeholder="Heading"><br>
                         <input type="text" name="project_name" placeholder="Project Name"><br>
                         <textarea name="project_description" rows="4" placeholder="Project Description"></textarea><br>
@@ -71,7 +69,7 @@
                             <option value="ongoing">Ongoing</option>
                             <option value="completed">Completed</option>
                         </select><br>
-                        <button type="submit" class="submit-project-button">Submit</button>
+                        <button type="button" id="submit-project-button" class="submit-project-button">Submit</button>
                     </form>
                 </div>
                 <!-- Posts by other users -->
@@ -115,9 +113,6 @@
             var createProjectButton = document.getElementById('create-project-button');
             var projectForm = document.getElementById('projectForm');
 
-            // Hide the form initially
-            projectForm.style.display = 'none';
-
             // Add click event listener to the button
             createProjectButton.addEventListener('click', function () {
                 // Toggle visibility of the form
@@ -125,55 +120,35 @@
             });
         });
 
+
         document.addEventListener('DOMContentLoaded', function () {
-            var mediaInput = document.getElementById('mediaInput');
-            var mediaPreviewContainer = document.getElementById('mediaPreviewContainer');
+            var submitProjectButton = document.getElementById('submit-project-button');
+            var projectForm = document.getElementById('projectForm');
 
-            // Add change event listener to the file input
-            mediaInput.addEventListener('change', function (event) {
-                // Clear existing previews
-                mediaPreviewContainer.innerHTML = '';
+            submitProjectButton.addEventListener('click', function () {
+                var formData = new FormData(projectForm);
 
-                // Loop through selected files
-                for (var i = 0; i < event.target.files.length; i++) {
-                    var file = event.target.files[i];
-
-                    // Check if a file is selected
-                    if (file) {
-                        var fileType = file.type;
-
-                        // Create preview element
-                        var previewElement = document.createElement('div');
-                        previewElement.classList.add('mediaPreviewItem');
-
-                        // Check if the selected file is an image
-                        if (fileType.startsWith('image/')) {
-                            // Display image preview
-                            var reader = new FileReader();
-                            reader.onload = function (e) {
-                                var imgElement = document.createElement('img');
-                                imgElement.src = e.target.result;
-                                previewElement.appendChild(imgElement);
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                        // Check if the selected file is a video
-                        else if (fileType.startsWith('video/')) {
-                            // Display video preview
-                            var videoElement = document.createElement('video');
-                            videoElement.src = URL.createObjectURL(file);
-                            videoElement.controls = true;
-                            videoElement.autoplay = true;
-                            previewElement.appendChild(videoElement);
-                        }
-
-                        // Append preview element to container
-                        mediaPreviewContainer.appendChild(previewElement);
+                fetch('/post_project/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
                     }
-                }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Redirect to the feed page upon successful submission
+                            window.location.href = "/feed";
+                        } else {
+                            // Handle errors
+                            console.error('Error submitting form:', response.statusText);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error submitting form:', error);
+                    });
             });
         });
-
 
     </script>
 </body>

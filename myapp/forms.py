@@ -35,4 +35,4 @@ class UserLoginForm(AuthenticationForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['heading', 'project_name', 'project_description', 'category', 'status', 'media']
+        fields = ['heading', 'project_name', 'project_description', 'category', 'status']
