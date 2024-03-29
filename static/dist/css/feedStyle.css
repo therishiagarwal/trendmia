@@ -1,5 +1,4 @@
 /* feedStyle.css */
-
 body {
     margin: 0;
     padding: 0;
@@ -24,17 +23,18 @@ body {
 }
 
 .logo img {
-    height: 40px; /* Adjust the height of the logo as needed */
+    height: 40px;
 }
 
-.project-search{
+.project-search {
     background-color: whitesmoke;
-    border-radius: 50px;
-    color: rgb(83, 79, 79);
+    border-radius: 7px;
+    color: rgb(151, 151, 151);
     width: 30%;
     height: 25px;
-    padding: auto;
-    text-align:center;
+    text-align: center;
+    font-weight: bold;
+    line-height: 25px;
 }
 
 .right-section {
@@ -52,12 +52,11 @@ body {
 }
 
 .left-container {
-    width: 280px; 
+    width: 280px;
     float: left;
 }
 
-/* Center the dropdown button */
-.profile-flashcard {    
+.profile-flashcard {
     border: 2px solid black;
     display: flex;
     flex-direction: column;
@@ -65,88 +64,14 @@ body {
     border-radius: 10px;
 }
 
-/* Style the welcome message */
 .welcome-message {
-    margin-bottom: 10px; /* Add some spacing below the welcome message */
-}
-
-
-.feed-container {
-    border: 1px solid #ccc;
-    max-width: 800px; 
-    margin: 0 auto; 
-    margin-top: 20px;
-    padding: 5px;
-}
-
-.feed-post {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px; 
-}
-
-.feed-post h2 {
-    margin-top: 0;
-}
-
-.feed-post p {
     margin-bottom: 10px;
+    font-weight: bold;
 }
-
-.feed-post img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.feed-post .post-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.feed-post .post-actions button {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.feed-post .post-actions button:hover {
-    background-color: #555;
-}
-
-.post-form {
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 10px; /* Adding padding for better spacing */
-    text-align: center;    
-}
-
-.post-form .create-project-button {
-    background-color: transparent;
-    color: black;
-    border: 2px solid black;
-    width: 90%;
-    padding: 10px 20px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.post-form .create-project-button:hover {
-    background-color: #e6e9c6;
-}
-
 
 #profileDropdownContent {
     display: none;
 }
-
 
 .dropdown {
     position: relative;
@@ -157,15 +82,31 @@ body {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    width: 100px;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 120px;
+    min-width: 200px;
+    overflow-y: auto;
+    max-height: auto;
+    border: 1px solid #ccc;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    padding: 10px;
+}
+
+.dropdown-content label {
+    display: block;
+    margin: 5px 0; 
+}
+
+.dropdown-content input[type="checkbox"] {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
 }
 
 .dropdown-content a {
@@ -179,6 +120,146 @@ body {
     background-color: #f1f1f1;
 }
 
-.show {
-    display: block;
+.feed-container {
+    border: 1px solid #ccc;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+.post-form {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: #e9e5eef5;
+}
+
+.post-form .create-project-button {
+    background-color: transparent;
+    color: black;
+    border: 2px solid black;
+    width: 90%;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.post-form .create-project-button:hover {
+    background-color: #e6e9c6;
+}
+
+.post-form form {
+    padding: 10px;
+    border-radius: 7px;
+    border: 2px solid black;
+}
+
+.post-form form input[type="text"],
+.post-form form textarea,
+.post-form form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #312f2f;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.post-form form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center;
+}
+
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.input-wrapper input[type="text"] {
+    width: calc(100% - 40px);
+    padding-right: 30px;
+    box-sizing: border-box;
+}
+
+.input-wrapper .dropdown {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.input-wrapper .dropdown .dropbtn {
+    width: 140px; /* Adjust as needed */
+}
+
+
+.input-wrapper .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    display: none;
+}
+
+.input-wrapper .dropdown-content label {
+    cursor: pointer;
+    text-align: left;
+    font-size: 11px;
+}
+
+.input-wrapper .dropdown-content input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.post-form .cancel-project-button,
+.post-form .submit-project-button {
+    background-color: #4c3eca;
+    border: 2px solid black;
+    color: white;
+    padding: 12px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.post-form .submit-project-button:hover {
+    background-color: #5960c0;
+}
+
+.post-form .cancel-project-button {
+    background-color: white;
+    color: black;
+}
+
+.post-form .cancel-project-button:hover {
+    background-color: #e98881;
+}
+
+.post-list {
+    background-color: #e6e9c6;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+
+.post {
+    border: 2px solid black;
+    background-color: #d5e6dd;
+    padding: 5px;
+    margin-bottom: 8px;
 }

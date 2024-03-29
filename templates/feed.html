@@ -21,7 +21,7 @@
                 <!-- Your logo image -->
                 <img src="{% static 'dist/images/logo.svg' %}" alt="Logo">
             </div>
-            <div class="project-search">Search Projects Here</div>
+            <div class="project-search">Search</div>
             <div class="right-section">
                 <button id="home-button">Home</button>
                 <button id="notification-button">Notification</button>
@@ -61,27 +61,67 @@
                     </div>
                     <form id="projectForm" method="POST">
                         {% csrf_token %}
-                        <input type="text" name="heading" placeholder="Heading"><br>
-                        <input type="text" name="project_name" placeholder="Project Name"><br>
+                        <input type="text" name="heading" placeholder="Caption"><br>
+                        <input type="text" name="project_name" placeholder="Project Title"><br>
                         <textarea name="project_description" rows="4" placeholder="Project Description"></textarea><br>
-                        <input type="text" name="category" placeholder="Category"><br>
-                        <select name="status">
-                            <option value="ongoing">Ongoing</option>
-                            <option value="completed">Completed</option>
-                        </select><br>
-                        <button type="button" id="submit-project-button" class="submit-project-button">Submit</button>
+                        <div class="input-wrapper">
+                            <!-- <input type="text" name="category" placeholder="Tags"> -->
+                            <div class="dropdown">
+                                <button class="dropbtn" id="categoryDropdownBtn">Select Categories &#9660;</button>
+                                <div class="dropdown-content" id="categoryDropdownContent">
+                                    <label><input type="checkbox" value="AI"> AI</label>
+                                    <label><input type="checkbox" value="Data Science"> Data Science</label>
+                                    <label><input type="checkbox" value="Web Development"> Web Development</label>
+                                    <label><input type="checkbox" value="Finance"> Finance</label>
+                                    <label><input type="checkbox" value="IoT"> IoT</label>
+                                    <label><input type="checkbox" value="App Development"> App Development</label>
+                                    <label><input type="checkbox" value="Health"> Health</label>
+                                    <label><input type="checkbox" value="Productivity"> Productivity</label>
+                                    <label><input type="checkbox" value="Entertainment"> Entertainment</label>
+                                    <label><input type="checkbox" value="E-commerce"> E-commerce</label>
+                                    <label><input type="checkbox" value="Education"> Education</label>
+                                    <label><input type="checkbox" value="Cloud"> Cloud</label>
+                                    <label><input type="checkbox" value="Sports"> Sports</label>
+                                    <label><input type="checkbox" value="Robotics"> Robotics</label>
+                                    <label><input type="checkbox" value="Drones"> Drones</label>
+                                    <label><input type="checkbox" value="Mechanical"> Mechanical</label>
+                                    <label><input type="checkbox" value="Cybersecurity"> Cybersecurity</label>
+                                    <label><input type="checkbox" value="Ar/Vr"> Ar/Vr</label>
+                                    <label><input type="checkbox" value="Blockchain"> Blockchain</label>
+                                    <label><input type="checkbox" value="Environmental Sustainability"> Environmental
+                                        Sustainability</label>
+                                </div>
+                            </div>
+                            <input type="text" id="selectedCategories" placeholder="Selected Categories" readonly>
+
+                            <select name="status">
+                                <option value="ongoing">Ongoing</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="button-group">
+                            <button type="button" id="cancel-project-button"
+                                class="cancel-project-button">Cancel</button>
+                            <button type="button" id="submit-project-button"
+                                class="submit-project-button">Submit</button>
+                        </div>
                     </form>
                 </div>
                 <!-- Posts by other users -->
+                <h2>Recent posts:</h2>
                 <div class="post-list">
-                    <h2>Recent posts:</h2>
-                    <!-- Display posts here -->
-                    <!-- Example post -->
+                    <!-- Iterate over each post and display user name, caption, project title, description, and categories -->
+                    {% for post in posts %}
                     <div class="post">
-                        <p>Project: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <p>Posted by: User123</p>
+                        <p>User: {{ post.user.name }}</p>
+                        <p>Caption: {{ post.heading }}</p>
+                        <p>Project Title: {{ post.project_name }}</p>
+                        <p>Description: {{ post.project_description }}</p>
+                        <p>Categories: {{ post.category }}</p>
                     </div>
+                    {% endfor %}
                 </div>
+
             </div>
         </div>
     </div>
@@ -120,10 +160,43 @@
             });
         });
 
+        document.addEventListener('DOMContentLoaded', function () {
+            var categoryDropdownContent = document.getElementById('categoryDropdownContent');
+            var selectedCategoriesInput = document.getElementById('selectedCategories');
+            var categoryDropdownBtn = document.getElementById('categoryDropdownBtn');
+
+            // Add click event listener to dropdown button
+            categoryDropdownBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                // Toggle visibility of dropdown content
+                categoryDropdownContent.style.display = 'block';
+            });
+
+            // Add change event listener to dropdown content
+            categoryDropdownContent.addEventListener('change', function () {
+                // Get all checked checkboxes
+                var checkedCheckboxes = categoryDropdownContent.querySelectorAll('input[type="checkbox"]:checked');
+                // Extract values from checked checkboxes and join them with a comma
+                var selectedCategories = Array.from(checkedCheckboxes).map(function (checkbox) {
+                    return checkbox.value;
+                }).join(', ');
+                // Set the value of the input field to the selected categories
+                selectedCategoriesInput.value = selectedCategories;
+            });
+
+            // Close dropdown content if clicked outside
+            document.addEventListener('click', function (event) {
+                if (!event.target.closest('.dropdown')) {
+                    categoryDropdownContent.style.display = 'none';
+                }
+            });
+        });
 
         document.addEventListener('DOMContentLoaded', function () {
             var submitProjectButton = document.getElementById('submit-project-button');
             var projectForm = document.getElementById('projectForm');
+
+            projectForm.style.display = 'none';
 
             submitProjectButton.addEventListener('click', function () {
                 var formData = new FormData(projectForm);
@@ -149,6 +222,19 @@
                     });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var cancelProjectButton = document.getElementById('cancel-project-button');
+            var projectForm = document.getElementById('projectForm');
+
+            cancelProjectButton.addEventListener('click', function () {
+                // Reset the form
+                projectForm.reset();
+                // Hide the form
+                projectForm.style.display = 'none';
+            });
+        });
+
 
     </script>
 </body>

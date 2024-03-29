@@ -33,6 +33,9 @@ class UserLoginForm(AuthenticationForm):
 
 
 class ProjectForm(forms.ModelForm):
+    category = forms.MultipleChoiceField(choices=Project.CATEGORY_CHOICES, widget=forms.CheckboxSelectMultiple)
+
     class Meta:
         model = Project
         fields = ['heading', 'project_name', 'project_description', 'category', 'status']
+

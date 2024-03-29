@@ -6,9 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.http import JsonResponse
-from .forms import SignUpForm, UserLoginForm, ProjectForm
+from .forms import SignUpForm, ProjectForm
 from datetime import datetime
 import supabase
+from .models import Project
 
 # Initialize Supabase client
 supabase_url = 'https://oypasfbahsankiotfziv.supabase.co'
@@ -101,3 +102,8 @@ def post_project(request):
     else:
         # Method is not POST, return error response
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    
+def feed(request):
+    # Retrieve all posts ordered by the creation date in descending order (most recent first)
+    posts = Project.objects.all().order_by('-created_at')
+    return render(request, 'feed.html', {'posts': posts})
