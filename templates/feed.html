@@ -67,7 +67,7 @@
                         <div class="input-wrapper">
                             <!-- <input type="text" name="category" placeholder="Tags"> -->
                             <div class="dropdown">
-                                <button class="dropbtn" id="categoryDropdownBtn">Select Categories &#9660;</button>
+                                <button class="category" id="categoryDropdownBtn">Select Categories &#9660;</button>
                                 <div class="dropdown-content" id="categoryDropdownContent">
                                     <label><input type="checkbox" value="AI"> AI</label>
                                     <label><input type="checkbox" value="Data Science"> Data Science</label>
@@ -92,12 +92,10 @@
                                         Sustainability</label>
                                 </div>
                             </div>
-                            <input type="text" id="selectedCategories" placeholder="Selected Categories" readonly>
-
-                            <select name="status">
-                                <option value="ongoing">Ongoing</option>
-                                <option value="completed">Completed</option>
-                            </select>
+                                <select name="status">
+                                    <option value="ongoing">Ongoing</option>
+                                    <option value="completed">Completed</option>
+                                </select>
                         </div>
                         <div class="button-group">
                             <button type="button" id="cancel-project-button"
@@ -162,7 +160,6 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             var categoryDropdownContent = document.getElementById('categoryDropdownContent');
-            var selectedCategoriesInput = document.getElementById('selectedCategories');
             var categoryDropdownBtn = document.getElementById('categoryDropdownBtn');
 
             // Add click event listener to dropdown button
@@ -170,18 +167,6 @@
                 event.preventDefault();
                 // Toggle visibility of dropdown content
                 categoryDropdownContent.style.display = 'block';
-            });
-
-            // Add change event listener to dropdown content
-            categoryDropdownContent.addEventListener('change', function () {
-                // Get all checked checkboxes
-                var checkedCheckboxes = categoryDropdownContent.querySelectorAll('input[type="checkbox"]:checked');
-                // Extract values from checked checkboxes and join them with a comma
-                var selectedCategories = Array.from(checkedCheckboxes).map(function (checkbox) {
-                    return checkbox.value;
-                }).join(', ');
-                // Set the value of the input field to the selected categories
-                selectedCategoriesInput.value = selectedCategories;
             });
 
             // Close dropdown content if clicked outside

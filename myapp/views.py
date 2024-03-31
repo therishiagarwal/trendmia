@@ -90,7 +90,20 @@ def post_project(request):
                 project = form.save(commit=False)
                 project.user = request.user
                 project.created_at = datetime.now()  
-                project.save()  # Save project data to the database
+                project.save()  # Save project data to the Django database
+
+                # Save project data to Supabase
+                supabase_client.table('projects').upsert([
+                    {
+                        'heading': project.heading,
+                        'project_name': project.project_name,
+                        'project_description': project.project_description,
+                        'category': project.category,
+                        'status': project.status,
+                        'user_id': project.user.id,
+                        'created_at': project.created_at.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+                    }
+                ]).execute()
 
                 return JsonResponse({'success': True})  # Send JSON response indicating success
             except Exception as e:
@@ -102,6 +115,7 @@ def post_project(request):
     else:
         # Method is not POST, return error response
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
     
 def feed(request):
     # Retrieve all posts ordered by the creation date in descending order (most recent first)
