@@ -64,38 +64,23 @@
                         <input type="text" name="heading" placeholder="Caption"><br>
                         <input type="text" name="project_name" placeholder="Project Title"><br>
                         <textarea name="project_description" rows="4" placeholder="Project Description"></textarea><br>
+
                         <div class="input-wrapper">
-                            <!-- <input type="text" name="tags" placeholder="Tags"> -->
-                            <div class="dropdown">
-                                <button class="tags" id="tagsDropdownBtn">Select Categories &#9660;</button>
-                                <div class="dropdown-content" id="tagsDropdownContent">
-                                    <label><input type="checkbox" value="AI"> AI</label>
-                                    <label><input type="checkbox" value="Data Science"> Data Science</label>
-                                    <label><input type="checkbox" value="Web Development"> Web Development</label>
-                                    <label><input type="checkbox" value="Finance"> Finance</label>
-                                    <label><input type="checkbox" value="IoT"> IoT</label>
-                                    <label><input type="checkbox" value="App Development"> App Development</label>
-                                    <label><input type="checkbox" value="Health"> Health</label>
-                                    <label><input type="checkbox" value="Productivity"> Productivity</label>
-                                    <label><input type="checkbox" value="Entertainment"> Entertainment</label>
-                                    <label><input type="checkbox" value="E-commerce"> E-commerce</label>
-                                    <label><input type="checkbox" value="Education"> Education</label>
-                                    <label><input type="checkbox" value="Cloud"> Cloud</label>
-                                    <label><input type="checkbox" value="Sports"> Sports</label>
-                                    <label><input type="checkbox" value="Robotics"> Robotics</label>
-                                    <label><input type="checkbox" value="Drones"> Drones</label>
-                                    <label><input type="checkbox" value="Mechanical"> Mechanical</label>
-                                    <label><input type="checkbox" value="Cybersecurity"> Cybersecurity</label>
-                                    <label><input type="checkbox" value="Ar/Vr"> Ar/Vr</label>
-                                    <label><input type="checkbox" value="Blockchain"> Blockchain</label>
-                                    <label><input type="checkbox" value="Environmental Sustainability"> Environmental
-                                        Sustainability</label>
-                                </div>
-                            </div>
-                                <select name="status">
-                                    <option value="ongoing">Ongoing</option>
-                                    <option value="completed">Completed</option>
-                                </select>
+                            <label for="tags">Tags:</label><button id="clearTags">Clear</button><br>
+                            <select id="tagsSelect" name="category" multiple>
+                                {% for tag in tags %}
+                                <option value="{{ tag.id }}">{{ tag.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <p id="selectedTags"></p> <!-- Display selected tags here -->
+                        </div>
+
+                        <div class="input-wrapper">
+                            <label for="status">Status:</label><br>
+                            <select name="status">
+                                <option value="ongoing">Ongoing</option>
+                                <option value="completed">Completed</option>
+                            </select>
                         </div>
                         <div class="button-group">
                             <button type="button" id="cancel-project-button"
@@ -104,6 +89,8 @@
                                 class="submit-project-button">Submit</button>
                         </div>
                     </form>
+
+
                 </div>
                 <!-- Posts by other users -->
                 <h2>Recent posts:</h2>
@@ -176,6 +163,45 @@
                 }
             });
         });
+
+
+        // Initialize an array to store selected options
+        var selectedOptions = [];
+
+        // Function to update selected tags display
+        function updateSelectedTags() {
+            document.getElementById('selectedTags').textContent = 'Selected Tags: ' + selectedOptions.join(', ');
+        }
+
+        // Add event listener to the select element
+        document.getElementById('tagsSelect').addEventListener('click', function (event) {
+            // Get the clicked option
+            var clickedOption = event.target.textContent;
+
+            // Check if the clicked option is already selected
+            var index = selectedOptions.indexOf(clickedOption);
+            if (index === -1) {
+                // If not selected, add it to the array
+                selectedOptions.push(clickedOption);
+            } else {
+                // If already selected, remove it from the array
+                selectedOptions.splice(index, 1);
+            }
+
+            // Update selected tags display
+            updateSelectedTags();
+        });
+
+        // Add event listener to the clear button
+        document.getElementById('clearTags').addEventListener('click', function (event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+            // Clear selected options array
+            selectedOptions = [];
+            // Update selected tags display
+            updateSelectedTags();
+        });
+
 
         document.addEventListener('DOMContentLoaded', function () {
             var submitProjectButton = document.getElementById('submit-project-button');

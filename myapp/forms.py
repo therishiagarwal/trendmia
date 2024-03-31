@@ -3,7 +3,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from myapp.models import CustomUser
-from .models import Project
+from .models import Project,Tag
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="Email")
@@ -33,9 +33,8 @@ class UserLoginForm(AuthenticationForm):
 
 
 class ProjectForm(forms.ModelForm):
-    category = forms.MultipleChoiceField(choices=Project.CATEGORY_CHOICES, widget=forms.CheckboxSelectMultiple)
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Project
-        fields = ['heading', 'project_name', 'project_description', 'category', 'status']
-
+        fields = ['heading', 'project_name', 'project_description', 'tags', 'status']

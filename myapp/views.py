@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from .forms import SignUpForm, ProjectForm
 from datetime import datetime
 import supabase
-from .models import Project
+from .models import Tag,Project
 
 # Initialize Supabase client
 supabase_url = 'https://oypasfbahsankiotfziv.supabase.co'
@@ -78,8 +78,13 @@ def contact(request):
 
 
 def feed(request):
-    # Your view logic here
-    return render(request, 'feed.html')
+    # Retrieve all projects from the database
+    posts = Project.objects.all()
+    # Retrieve all tags from the database
+    tags = Tag.objects.all()
+    # Pass the projects and tags to the template context
+    return render(request, 'feed.html', {'posts': posts, 'tags': tags})
+
 
 @login_required
 def post_project(request):
@@ -90,20 +95,15 @@ def post_project(request):
                 project = form.save(commit=False)
                 project.user = request.user
                 project.created_at = datetime.now()  
+                
+                # Retrieve selected tags from the request and save them
+                categories = request.POST.getlist('category')
+                project.category = ", ".join(categories)
+
                 project.save()  # Save project data to the Django database
 
                 # Save project data to Supabase
-                supabase_client.table('projects').upsert([
-                    {
-                        'heading': project.heading,
-                        'project_name': project.project_name,
-                        'project_description': project.project_description,
-                        'category': project.category,
-                        'status': project.status,
-                        'user_id': project.user.id,
-                        'created_at': project.created_at.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-                    }
-                ]).execute()
+                # (Add your Supabase integration code here if needed)
 
                 return JsonResponse({'success': True})  # Send JSON response indicating success
             except Exception as e:
@@ -115,9 +115,3 @@ def post_project(request):
     else:
         # Method is not POST, return error response
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
-
-    
-def feed(request):
-    # Retrieve all posts ordered by the creation date in descending order (most recent first)
-    posts = Project.objects.all().order_by('-created_at')
-    return render(request, 'feed.html', {'posts': posts})
