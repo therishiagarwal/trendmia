@@ -65,10 +65,10 @@
                         <input type="text" name="project_name" placeholder="Project Title"><br>
                         <textarea name="project_description" rows="4" placeholder="Project Description"></textarea><br>
                         <div class="input-wrapper">
-                            <!-- <input type="text" name="category" placeholder="Tags"> -->
+                            <!-- <input type="text" name="tags" placeholder="Tags"> -->
                             <div class="dropdown">
-                                <button class="category" id="categoryDropdownBtn">Select Categories &#9660;</button>
-                                <div class="dropdown-content" id="categoryDropdownContent">
+                                <button class="tags" id="tagsDropdownBtn">Select Categories &#9660;</button>
+                                <div class="dropdown-content" id="tagsDropdownContent">
                                     <label><input type="checkbox" value="AI"> AI</label>
                                     <label><input type="checkbox" value="Data Science"> Data Science</label>
                                     <label><input type="checkbox" value="Web Development"> Web Development</label>
@@ -115,7 +115,7 @@
                         <p>Caption: {{ post.heading }}</p>
                         <p>Project Title: {{ post.project_name }}</p>
                         <p>Description: {{ post.project_description }}</p>
-                        <p>Categories: {{ post.category }}</p>
+                        <p>Categories: {{ post.tags }}</p>
                     </div>
                     {% endfor %}
                 </div>
@@ -159,20 +159,20 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            var categoryDropdownContent = document.getElementById('categoryDropdownContent');
-            var categoryDropdownBtn = document.getElementById('categoryDropdownBtn');
+            var tagsDropdownContent = document.getElementById('tagsDropdownContent');
+            var tagsDropdownBtn = document.getElementById('tagsDropdownBtn');
 
             // Add click event listener to dropdown button
-            categoryDropdownBtn.addEventListener('click', function (event) {
+            tagsDropdownBtn.addEventListener('click', function (event) {
                 event.preventDefault();
                 // Toggle visibility of dropdown content
-                categoryDropdownContent.style.display = 'block';
+                tagsDropdownContent.style.display = 'block';
             });
 
             // Close dropdown content if clicked outside
             document.addEventListener('click', function (event) {
                 if (!event.target.closest('.dropdown')) {
-                    categoryDropdownContent.style.display = 'none';
+                    tagsDropdownContent.style.display = 'none';
                 }
             });
         });
