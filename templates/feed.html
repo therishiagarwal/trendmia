@@ -64,7 +64,7 @@
                         <input type="text" name="heading" placeholder="Caption"><br>
                         <input type="text" name="project_name" placeholder="Project Title"><br>
                         <textarea name="project_description" rows="4" placeholder="Project Description"></textarea><br>
-                    
+
                         <div class="input-wrapper">
                             <label for="tags">Tags:</label><button id="clearTags">Clear</button><br>
                             <select id="tagsSelect" name="category" multiple>
@@ -74,7 +74,7 @@
                             </select>
                             <p id="selectedTags"></p> <!-- Display selected tags here -->
                         </div>
-                    
+
                         <div class="input-wrapper">
                             <label for="status">Status:</label><br>
                             <select name="status">
@@ -83,10 +83,12 @@
                             </select>
                         </div>
                         <div class="button-group">
-                            <button type="button" id="cancel-project-button" class="cancel-project-button">Cancel</button>
-                            <button type="button" id="submit-project-button" class="submit-project-button">Submit</button>
+                            <button type="button" id="cancel-project-button"
+                                class="cancel-project-button">Cancel</button>
+                            <button type="button" id="submit-project-button"
+                                class="submit-project-button">Submit</button>
                         </div>
-                    </form>                 
+                    </form>
 
                 </div>
                 <!-- Posts by other users -->
@@ -203,11 +205,24 @@
         document.addEventListener('DOMContentLoaded', function () {
             var submitProjectButton = document.getElementById('submit-project-button');
             var projectForm = document.getElementById('projectForm');
+            var tagsSelect = document.getElementById('tagsSelect'); // Get the tags dropdown select element
 
             projectForm.style.display = 'none';
 
             submitProjectButton.addEventListener('click', function () {
+                // Get the selected tags from the dropdown select element
+                var selectedTags = [];
+                for (var i = 0; i < tagsSelect.options.length; i++) {
+                    if (tagsSelect.options[i].selected) {
+                        selectedTags.push(tagsSelect.options[i].value);
+                    }
+                }
+
+                // Add the selected tags to the form data
                 var formData = new FormData(projectForm);
+                selectedTags.forEach(function (tag) {
+                    formData.append('tags', tag);
+                });
 
                 fetch('/post_project/', {
                     method: 'POST',
@@ -231,17 +246,6 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var cancelProjectButton = document.getElementById('cancel-project-button');
-            var projectForm = document.getElementById('projectForm');
-
-            cancelProjectButton.addEventListener('click', function () {
-                // Reset the form
-                projectForm.reset();
-                // Hide the form
-                projectForm.style.display = 'none';
-            });
-        });
 
 
     </script>

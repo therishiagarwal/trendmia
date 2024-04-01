@@ -91,19 +91,22 @@ def post_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
+            print(form.cleaned_data)  # Debugging: Print form data
             try:
                 project = form.save(commit=False)
                 project.user = request.user
                 project.created_at = datetime.now()  
                 project.save()  # Save project data to the database
-
+                print("Project saved successfully")  # Debugging: Print success message
                 # Redirect to the feed page upon successful submission
                 return redirect('feed')
             except Exception as e:
                 # Handle errors
+                print("Error saving project:", e)  # Debugging: Print error message
                 return JsonResponse({'success': False, 'error': str(e)})
         else:
             # Form is invalid, return error response
+            print("Form errors:", form.errors)  # Debugging: Print form errors
             return JsonResponse({'success': False, 'error': 'Invalid form data'})
     else:
         # Method is not POST, return error response
