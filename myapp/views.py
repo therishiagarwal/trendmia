@@ -95,17 +95,10 @@ def post_project(request):
                 project = form.save(commit=False)
                 project.user = request.user
                 project.created_at = datetime.now()  
-                
-                # Retrieve selected tags from the request and save them
-                categories = request.POST.getlist('category')
-                project.category = ", ".join(categories)
+                project.save()  # Save project data to the database
 
-                project.save()  # Save project data to the Django database
-
-                # Save project data to Supabase
-                # (Add your Supabase integration code here if needed)
-
-                return JsonResponse({'success': True})  # Send JSON response indicating success
+                # Redirect to the feed page upon successful submission
+                return redirect('feed')
             except Exception as e:
                 # Handle errors
                 return JsonResponse({'success': False, 'error': str(e)})
