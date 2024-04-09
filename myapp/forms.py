@@ -33,8 +33,8 @@ class UserLoginForm(AuthenticationForm):
 
 
 class ProjectForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.SelectMultiple)
+    tags = forms.CharField(max_length=255)
 
     class Meta:
         model = Project
-        fields = ['heading', 'project_name', 'project_description', 'category', 'status', 'tags']
+        fields = ['heading', 'project_name', 'project_description', 'status', 'tags']

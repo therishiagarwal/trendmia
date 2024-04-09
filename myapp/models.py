@@ -43,11 +43,10 @@ class Project(models.Model):
     heading = models.TextField()
     project_name = models.TextField()
     project_description = models.TextField()
-    # Add the 'category' field
-    category = models.CharField(max_length=100)
     status = models.CharField(max_length=20, choices=[('ongoing', 'Ongoing'), ('completed', 'Completed')])
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)  # Set the creation date automatically
+    created_at = models.DateTimeField(auto_now_add=True)
+    tags = models.CharField(max_length=255)  # Store comma-separated tags
 
     def __str__(self):
         return self.project_name
