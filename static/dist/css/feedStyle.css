@@ -12,9 +12,14 @@ body {
 }
 
 .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: #0d1117;
     color: white;
     padding: 10px 0;
+    z-index: 1000; /* Ensure it's above other content */
 }
 
 .navbar .container {
@@ -55,6 +60,8 @@ body {
 .left-container {
     width: 280px;
     float: left;
+    position: fixed;
+
 }
 
 .profile-flashcard {
@@ -63,7 +70,25 @@ body {
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
+    padding: 20px;
 }
+
+.profile-info {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-info img {
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin-bottom: 10px;
+}
+
+
 
 .welcome-message {
     margin-bottom: 10px;
@@ -139,7 +164,7 @@ body {
     border: 1px solid #ccc;
     max-width: 800px;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 70px;
     padding: 5px;
 }
 
@@ -279,9 +304,60 @@ body {
     border-radius: 7px;
 }
 
+.post p {
+    margin: 0 0 10px;
+    line-height: 1.4;
+}
+
 .post {
-    border: 2px solid black;
-    background-color: #d5e6dd;
-    padding: 5px;
-    margin-bottom: 8px;
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.post-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.post-content p {
+    margin: 0 0 10px;
+    line-height: 1.4;
+}
+
+.post_image {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+}
+
+.post_image img {
+    max-width: 100%;
+    border-radius: 5px;
+    width: 70%; /* Adjust image width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+.post button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post button:hover {
+    background-color: #45a049;
+}
+
+.timesince {
+    font-size: 12px; /* Decrease font size */
 }
