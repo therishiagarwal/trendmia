@@ -102,6 +102,10 @@
                         <p>Project Title: {{ post.project_name }}</p>
                         <p>Description: {{ post.project_description }}</p>
                         <p>Categories: {{ post.tags }}</p>
+                        <!-- Add a button to initiate chat -->
+                        <form action="{% url 'chat' post.user.username %}" method="get">
+                            <button type="submit">Initiate Chat</button>
+                        </form>
                     </div>
                     {% endfor %}
                 </div>

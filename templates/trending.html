@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trending Page</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        #plot {
+            width: 800px; /* Set the width of the plot */
+            height: 600px; /* Set the height of the plot */
+        }
+    </style>
+</head>
+<body>
+    <h1>Trending Page</h1>
+
+    
+
+    <!-- Display the tag counts table -->
+    <h2>Latest Trend in Tags:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tag</th>
+                <th>Weighted Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag, count in tag_counts %}
+            <tr>
+                <td>{{ tag }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Display the bar plot -->
+    <div id="plot"></div>
+
+    <!-- Script for plotting the bar graph -->
+    <script>
+        // Extract tag names and counts from Django template variables
+        const tags = [{% for tag, count in tag_counts %}'{{ tag }}',{% endfor %}];
+        const counts = [{% for tag, count in tag_counts %}{{ count }},{% endfor %}];
+
+        // Reverse the order of the arrays
+        tags.reverse();
+        counts.reverse();
+
+        // Plot the bar graph vertically
+        Plotly.newPlot('plot', [{
+            x: counts, // Use counts for the vertical bar lengths
+            y: tags,   // Use tags for the vertical bar labels
+            type: 'bar',
+            orientation: 'h' // Set orientation to horizontal
+        }]);
+    </script>
+</body>
+</html>
+
+
+
+
+    <!-- Input field for tag selection -->
+<h2>Select Tag:</h2>
+<select id="tagSelect">
+    <option value="" disabled selected>Select a tag</option>
+    {% for tag, count in tag_counts %}
+    <option value="{{ tag }}">{{ tag }}</option>
+    {% endfor %}
+</select>
+
+<!-- Div to display the plot -->
+<div id="plot"></div>
+
+<!-- Script for updating the plot based on dropdown selection -->
+<script>
+    const tagSelect = document.getElementById('tagSelect');
+    const plotDiv = document.getElementById('plot');
+
+    tagSelect.addEventListener('change', function() {
+        const tag = this.value;
+        if (!tag) return; // Exit if no tag selected
+
+        // Fetch data for the selected tag and update the plot
+        fetch(`/get_tag_history/?tag=${tag}`)
+            .then(response => response.json())
+            .then(data => {
+                // Update the plot using Plotly or any other library
+                Plotly.newPlot(plotDiv, data);
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
