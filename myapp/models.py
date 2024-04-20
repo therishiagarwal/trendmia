@@ -35,6 +35,7 @@ class Project(models.Model):
     project_name = models.TextField()
     project_description = models.TextField()
     status = models.CharField(max_length=20, choices=[('ongoing', 'Ongoing'), ('completed', 'Completed')])
+    location = models.CharField(max_length=100)  # New field for location (city)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.CharField(max_length=255)  # Store comma-separated tags

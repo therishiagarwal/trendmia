@@ -124,6 +124,21 @@ def feed(request):
     posts = Project.objects.all().order_by('-created_at')
     # Retrieve all tags from the database
     tags = Tag.objects.all()
+
+     # Handle filter form submission
+    if request.method == 'GET':
+        city = request.GET.get('city')
+        tags = request.GET.get('tags')
+        status = request.GET.get('status')
+
+        # Filter posts based on form inputs
+        if city:
+            posts = posts.filter(location__icontains=city)
+        if tags:
+            posts = posts.filter(tags__icontains=tags)
+        if status:
+            posts = posts.filter(status=status)
+            
     # Pass the projects and tags to the template context
     return render(request, 'feed.html', {'posts': posts, 'tags': tags})
 
@@ -153,6 +168,7 @@ def post_project(request):
     else:
         # Method is not POST, return error response
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    
 from django.shortcuts import render
 
 # views.py

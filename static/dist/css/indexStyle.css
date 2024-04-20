@@ -360,7 +360,7 @@ body {
   color: #45a049;
 }
 
-/* Responsive styles */
+
 @media only screen and (max-width: 768px) {
   .container {
     flex-direction: column; /* Stack elements vertically on small screens */

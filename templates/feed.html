@@ -48,8 +48,28 @@
                 <p class="welcome-message">Welcome, Guest!</p>
                 {% endif %}
             </div>
+            <!-- Filter section -->
+            <div class="filter-section">
+                <h2>Filters</h2>
+                <form id="filterForm" method="GET">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city">
 
+                    <label for="tags">Tags:</label>
+                    <input type="text" id="tags" name="tags">
 
+                    <label for="status">Status:</label>
+                    <select id="status" name="status">
+                        <option value="ongoing">Ongoing</option>
+                        <option value="completed">Completed</option>
+                    </select>
+
+                    <div class="button-group">
+                        <button type="button" id="reset-filter-button">Reset</button>
+                        <button type="submit" id="apply-filter-button">Apply</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <!-- Container for the feed section -->
@@ -86,6 +106,10 @@
                                 <option value="completed">Completed</option>
                             </select>
                         </div>
+                        <div class="input-wrapper">
+                            <label for="location">Location:(Optional)</label><br>
+                            <input type="text" name="location" placeholder="Enter city name for nearby-collaborations">
+                        </div>
                         <div class="button-group">
                             <button type="button" id="cancel-project-button"
                                 class="cancel-project-button">Cancel</button>
@@ -100,6 +124,7 @@
                 <div class="post-list">
                     {% for post in posts %}
                     <div class="post">
+                        <p>{{ post.user.name }}</p>
                         <div class="post-header">
                             <p class="timesince">{{ post.created_at|timesince }} ago</p>
                         </div>
@@ -116,7 +141,7 @@
                                 <button type="submit">Initiate Chat</button>
                             </form>
                         </div>
-                    </div>                    
+                    </div>
                     {% endfor %}
                 </div>
 
@@ -214,6 +239,23 @@
             // Update selected tags display
             updateSelectedTags();
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var filterForm = document.getElementById('filterForm');
+            var applyFilterButton = document.getElementById('apply-filter-button');
+            var resetFilterButton = document.getElementById('reset-filter-button');
+
+            applyFilterButton.addEventListener('click', function () {
+                // Submit the filter form
+                filterForm.submit();
+            });
+
+            resetFilterButton.addEventListener('click', function () {
+                // Reset the filter form
+                filterForm.reset();
+            });
+        });
+
 
 
         document.addEventListener('DOMContentLoaded', function () {
