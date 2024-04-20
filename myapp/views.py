@@ -10,6 +10,8 @@ from .forms import SignUpForm, ProjectForm
 from datetime import datetime
 import supabase
 from .models import Tag,Project
+from django.utils import timezone
+import pytz
 
 # Initialize Supabase client
 supabase_url = 'https://oypasfbahsankiotfziv.supabase.co'
@@ -119,7 +121,7 @@ def contact(request):
 
 def feed(request):
     # Retrieve all projects from the database
-    posts = Project.objects.all()
+    posts = Project.objects.all().order_by('-created_at')
     # Retrieve all tags from the database
     tags = Tag.objects.all()
     # Pass the projects and tags to the template context
