@@ -69,7 +69,7 @@
                             <label for="tags">Tags:</label><button id="clearTags">Clear</button><br>
                             <select id="tagsSelect" name="category" multiple>
                                 {% for tag in tags %}
-                                <option value="{{ tag.id }}">{{ tag.name }}</option>
+                                <option value="{{ tag.name }}">{{ tag.name }}</option>
                                 {% endfor %}
                             </select>
                             <p id="selectedTags"></p> <!-- Display selected tags here -->
