@@ -15,10 +15,13 @@ body {
 
 .navbar {
     position: fixed;
+    border-radius: 20px;
     top: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(to right, #0d1117, #0d0acfa1, #0d1117);
+    /* background: linear-gradient(to right, #0d1117, #0d0acfa1, #0d1117); */
+    /* background-color: #1f1beb49; */
+    background-color: rgba(0, 0, 0, 0.400);
     color: white;
     padding: 10px 0;
     z-index: 1000;
@@ -31,8 +34,18 @@ body {
     align-items: center;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
 .logo img {
     height: 40px;
+    margin-right: 10px;
 }
 
 .project-search {
@@ -52,14 +65,36 @@ body {
     align-items: center;
 }
 
+/* Style for the home and notification buttons */
 #home-button,
-#notification-button {
-    background-color: transparent;
-    border: none;
+#notification-button,
+#apply-filter-button {
+    background: linear-gradient(135deg, #380688 0%, #07b362 100%);
     color: white;
-    cursor: pointer;
+    border: none;
+    padding: 8px 16px;
     margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
+#reset-filter-button{
+    background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+    color: white;
+    border: none;   
+    padding: 8px 16px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+#home-button:hover,
+#notification-button:hover {
+    background: linear-gradient(135deg, #4c00ff77 0%, #07b362 100%); /* Adjusted color on hover */
+}
+
+
 
 .left-container {
     width: 280px;
@@ -417,6 +452,7 @@ body {
 
 .filter-section {
     margin-top: 20px;
+    width: 85%;
 }
 .filter-section h2 {
     color: white;
@@ -450,23 +486,20 @@ body {
 .filter-section .button-group {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Align buttons vertically */
 }
+
 .filter-section button {
-    background: #4c3eca;
-    border: 2px solid black;
+    border: 1px solid white;
     color: white;
-    padding: 12px 28px;
+    padding: 10px 20px; /* Adjust padding */
     font-size: 16px;
-    border-radius: 4px;
+    border-radius: 5px; /* Adjust border-radius */
     cursor: pointer;
     transition-duration: 0.4s;
+    background-color: #4c00ff77; /* Apply glassy color */
 }
+
 .filter-section button:hover {
-    background: #5960c0;
-}
-.filter-section #reset-filter-button {
-    background: #e74c3c;
-}
-.filter-section #reset-filter-button:hover {
-    background: #ff6655;
+    background-color: #380688; /* Adjust hover color */
 }
