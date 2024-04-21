@@ -34,8 +34,8 @@ class UserLoginForm(AuthenticationForm):
 
 class ProjectForm(forms.ModelForm):
     tags = forms.CharField(max_length=255)
-    city = forms.CharField(max_length=100, required=False) 
 
     class Meta:
         model = Project
-        fields = ['heading', 'project_name', 'project_description', 'status', 'tags', 'city']
+        fields = ['heading', 'project_name', 'project_description', 'status', 'tags', 'location']
+

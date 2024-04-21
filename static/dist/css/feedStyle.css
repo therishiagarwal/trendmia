@@ -254,7 +254,7 @@ body {
 
 .input-wrapper input[type="text"],
 .input-wrapper select {
-    width: calc(50% - 5px); /* Adjust width based on the desired layout */
+    width: calc(50% - 5px); 
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -263,9 +263,8 @@ body {
     font-size: 16px;
     color: white;
     background-color: black;
-    display: inline-block; /* Display input fields side by side */
+    display: inline-block; 
 }
-
 
 
 .dropbtn {

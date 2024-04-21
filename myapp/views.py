@@ -122,8 +122,6 @@ def contact(request):
 def feed(request):
     # Retrieve all projects from the database
     posts = Project.objects.all().order_by('-created_at')
-    # Retrieve all tags from the database
-    tags = Tag.objects.all()
 
      # Handle filter form submission
     if request.method == 'GET':
@@ -138,9 +136,13 @@ def feed(request):
             posts = posts.filter(tags__icontains=tags)
         if status:
             posts = posts.filter(status=status)
-            
-    # Pass the projects and tags to the template context
-    return render(request, 'feed.html', {'posts': posts, 'tags': tags})
+        # Retrieve all tags from the database
+        tags = Tag.objects.all()  
+        # Pass the projects and tags to the template context
+        return render(request, 'feed.html', {'posts': posts, 'tags': tags})
+    else:
+        # If the request method is not GET, handle it accordingly (e.g., return an error response)
+        return HttpResponse("Invalid request method")
 
 
 @login_required
@@ -148,26 +150,31 @@ def post_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)  # Debugging: Print form data
+            print(form.cleaned_data) 
             try:
                 project = form.save(commit=False)
                 project.user = request.user
                 project.created_at = datetime.now()  
-                project.save()  # Save project data to the database
-                print("Project saved successfully")  # Debugging: Print success message
-                # Redirect to the feed page upon successful submission
+                # Debugging: Print project object before saving
+                print("Project object before saving:", project)
+
+                project.save() 
+
+                # Debugging: Print success message
+                print("Project saved successfully")  
+
                 return redirect('feed')
             except Exception as e:
                 # Handle errors
-                print("Error saving project:", e)  # Debugging: Print error message
+                print("Error saving project:", e)  
                 return JsonResponse({'success': False, 'error': str(e)})
         else:
-            # Form is invalid, return error response
-            print("Form errors:", form.errors)  # Debugging: Print form errors
+            # Debugging: Print form errors
+            print("Form errors:", form.errors) 
             return JsonResponse({'success': False, 'error': 'Invalid form data'})
     else:
-        # Method is not POST, return error response
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
     
 from django.shortcuts import render
 
