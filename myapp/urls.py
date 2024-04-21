@@ -19,4 +19,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('trending/', views.trending, name='trending'),
     path('chat/<str:username>/', views.chat_page, name='chat'),
+    path('profile/', views.profile_view, name='profile'),
 ]

@@ -32,44 +32,46 @@
         <!-- Left container for the profile flashcard -->
         <div class="left-container">
             <!-- Profile flashcard -->
-            <div class="profile-flashcard" id="profileFlashcard">
-                {% if user.is_authenticated %}
-                <div class="profile-info">
-                    <img src="{% static 'dist/images/logo.svg' %}" alt="Profile Image">
-                    <p class="welcome-message">Welcome, {{ user.name }}!</p>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn" id="profileDropdownBtn">&#9660;</button>
-                    <div class="dropdown-content" id="profileDropdownContent">
-                        <a href="{% url 'logout' %}" id="logoutBtn">Logout</a>
+            <a href="{% url 'profile' %}" class="profile-link">
+                <div class="profile-flashcard" id="profileFlashcard">
+                    {% if user.is_authenticated %}
+                    <div class="profile-info">
+                        <img src="{% static 'dist/images/logo.svg' %}" alt="Profile Image">
+                        <p class="welcome-message">Welcome, {{ user.name }}!</p>
                     </div>
-                </div>
-                {% else %}
-                <p class="welcome-message">Welcome, Guest!</p>
-                {% endif %}
-            </div>
-            <!-- Filter section -->
-            <div class="filter-section">
-                <h2>Filters</h2>
-                <form id="filterForm" method="GET">
-                    <label for="city">City:</label>
-                    <input type="text" id="city" name="city">
-
-                    <label for="tags">Tags:</label>
-                    <input type="text" id="tags" name="tags">
-
-                    <label for="status">Status:</label>
-                    <select id="status" name="status">
-                        <option value="ongoing">Ongoing</option>
-                        <option value="completed">Completed</option>
-                    </select>
-
-                    <div class="button-group">
-                        <button type="button" id="reset-filter-button">Reset</button>
-                        <button type="submit" id="apply-filter-button">Apply</button>
+                    <div class="dropdown">
+                        <button class="dropbtn" id="profileDropdownBtn">&#9660;</button>
+                        <div class="dropdown-content" id="profileDropdownContent">
+                            <a href="{% url 'logout' %}" id="logoutBtn">Logout</a>
+                        </div>
                     </div>
-                </form>
-            </div>
+                    {% else %}
+                    <p class="welcome-message">Welcome, Guest!</p>
+                    {% endif %}
+                </div>
+                </a>
+                    <!-- Filter section -->
+                    <div class="filter-section">
+                        <h2>Filters</h2>
+                        <form id="filterForm" method="GET">
+                            <label for="city">City:</label>
+                            <input type="text" id="city" name="city">
+
+                            <label for="tags">Tags:</label>
+                            <input type="text" id="tags" name="tags">
+
+                            <label for="status">Status:</label>
+                            <select id="status" name="status">
+                                <option value="ongoing">Ongoing</option>
+                                <option value="completed">Completed</option>
+                            </select>
+
+                            <div class="button-group">
+                                <button type="button" id="reset-filter-button">Reset</button>
+                                <button type="submit" id="apply-filter-button">Apply</button>
+                            </div>
+                        </form>
+                    </div>
         </div>
 
         <!-- Container for the feed section -->

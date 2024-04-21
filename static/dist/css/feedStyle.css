@@ -81,6 +81,7 @@ body {
     color: white;
 }
 
+
 .profile-info {
     margin-bottom: 20px;
     display: flex;
@@ -99,6 +100,7 @@ body {
 
 
 .welcome-message {
+    color: white;
     margin-bottom: 10px;
     font-weight: bold;
 }

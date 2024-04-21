@@ -117,6 +117,10 @@ def trending(request):
 def contact(request):
     return HttpResponse("This is contact page")
 
+def profile_view(request):
+    user = request.user
+    posts = Project.objects.filter(user=user)
+    return render(request, 'profile.html', {'user': user, 'posts': posts})
 
 
 def feed(request):
