@@ -87,3 +87,19 @@ h1, h2 {
 h1 {
     margin-bottom: 20px;
 }
+
+.mark-complete-btn,
+.mark-ongoing-btn {
+    background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.mark-complete-btn:hover,
+.mark-ongoing-btn:hover {
+    background-color: #ff6a00; /* Change the hover color as needed */
+}

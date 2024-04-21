@@ -20,4 +20,5 @@ urlpatterns = [
     path('trending/', views.trending, name='trending'),
     path('chat/<str:username>/', views.chat_page, name='chat'),
     path('profile/', views.profile_view, name='profile'),
+    path('update_status/<int:post_id>/', views.update_status_view, name='update_status'),
 ]

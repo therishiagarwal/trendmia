@@ -39,12 +39,24 @@
             <div class="post-list">
                 {% for post in user.project_set.all|slice:"::-1" %}
                 <div class="post">
+                    
                     <p>Created at: {{ post.created_at }}</p>
                     <p>Caption: {{ post.heading }}</p>
                     <p>Project Title: {{ post.project_name }}</p>
                     <p>Project Description: {{ post.project_description }}</p>
                     <p>Status {{ post.status }}</p>
                     <p>Tags: {{ post.tags }}</p>
+                    {% if post.status == "ongoing" %}
+                    <form action="{% url 'update_status' post.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="mark-complete-btn">Mark as Completed</button>
+                    </form>
+                    {% elif post.status == "completed" %}
+                    <form action="{% url 'update_status' post.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="mark-ongoing-btn">Mark as Ongoing</button>
+                    </form>
+                    {% endif %}                    
                     <!-- Add more details about the post as needed -->
                 </div>
                 {% empty %}

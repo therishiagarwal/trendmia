@@ -122,6 +122,15 @@ def profile_view(request):
     posts = Project.objects.filter(user=user)
     return render(request, 'profile.html', {'user': user, 'posts': posts})
 
+@login_required
+def update_status_view(request, post_id):
+    project = Project.objects.get(pk=post_id)
+    if project.status == 'ongoing':
+        project.status = 'completed'
+    elif project.status == 'completed':
+        project.status = 'ongoing'
+    project.save()
+    return redirect('profile')  
 
 def feed(request):
     # Retrieve all projects from the database
