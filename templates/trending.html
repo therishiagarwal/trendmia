@@ -1,4 +1,4 @@
-<!-- trending.html  -->
+<!-- trending.html -->
 
 {% load static %}
 
@@ -20,29 +20,29 @@
     <div class="container">
         <h1>Trending Page</h1>
         <div class="content-wrapper">
-        <!-- Display the tag counts table -->
-        <div class="tag-counts">
-            <h2>Latest Trend in Tags:</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tag</th>
-                        <th>Weighted Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for tag, count in tag_counts %}
-                    <tr>
-                        <td>{{ tag }}</td>
-                        <td>{{ count }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            <!-- Display the tag counts table -->
+            <div class="tag-counts">
+                <h2>Latest Trend in Tags:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tag</th>
+                            <th>Weighted Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tag, count in tag_counts %}
+                        <tr>
+                            <td>{{ tag }}</td>
+                            <td>{{ count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-        <!-- Display the bar plot -->
-        <div class="bar-plot" id="plot"></div>
+            <!-- Display the bar plot -->
+            <div class="bar-plot" id="plot"></div>
         </div>
 
         <!-- Form for selecting a tag -->
@@ -80,13 +80,61 @@
         tags.reverse();
         counts.reverse();
 
-        // Plot the bar graph vertically
+        // Define custom colors based on a gradient color scale
+        const colors = counts.map(count => {
+            const maxCount = Math.max(...counts);
+            const minCount = Math.min(...counts);
+            const normalizedCount = (1.6*(count - minCount+0.5)) /((maxCount - minCount));
+
+            // Adjusting color towards red, then orange, then a touch of yellow
+            const red = Math.round(265 * (1 - normalizedCount) + 260);
+            const green = Math.round(100 * (1 - normalizedCount)+75);
+            const blue = Math.round(60 * (1 - normalizedCount));
+            return `rgb(${red}, ${green}, ${blue})`; // RGB color
+        });
+
+        // Plot the bar graph
         Plotly.newPlot('plot', [{
             x: counts, // Use counts for the vertical bar lengths
             y: tags,   // Use tags for the vertical bar labels
             type: 'bar',
-            orientation: 'h' // Set orientation to horizontal
-        }]);
+            orientation: 'h', // Set orientation to horizontal
+            marker: {
+                color: colors
+            },
+            width: 0.6 // Adjust bar width
+        }], {
+            margin: {
+                l: 150, // Adjust left margin for longer y-axis labels
+                r: 50,
+                b: 50,
+                t: 50,
+                pad: 4
+            },
+            xaxis: {
+                title: 'Counts',
+                tickfont: {
+                    size: 12,
+                    color: '#ddd' // Light text color for axes
+                }
+            },
+            yaxis: {
+                tickfont: {
+                    size: 12,
+                    color: '#ddd' // Light text color for axes
+                }
+            },
+            title: 'Tag Counts',
+            titlefont: {
+                size: 16,
+                color: '#ddd' // Light title color
+            },
+            plot_bgcolor: '#222', // Dark background color
+            paper_bgcolor: '#222', // Plot area background color
+            grid: {
+                color: '#444' // Grid line color
+            }
+        });
     </script>
 
 </body>
