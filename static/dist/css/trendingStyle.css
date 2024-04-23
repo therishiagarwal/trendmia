@@ -1,77 +1,104 @@
-/* trendingStyle.css  */
-
-/* Dark theme styles */
 body.dark-theme {
-    background-color: #1f1f1f; /* Dark background color */
-    color: #fff; /* Text color */
+    background-color: #1f1f1f;
+    color: #fff;
 }
 
-/* Table styles */
 body.dark-theme table {
-    color: #fff; /* Table text color */
+    color: #fff;
 }
 
-/* Table header styles */
 body.dark-theme table th {
-    background-color: #333; /* Header background color */
+    background-color: #333;
 }
 
-/* Table row styles */
 body.dark-theme table tr:nth-child(even) {
-    background-color: #333; /* Even row background color */
+    background-color: #333;
 }
 
-/* Select dropdown styles */
 body.dark-theme select {
-    background-color: #333; /* Dropdown background color */
-    color: #fff; /* Dropdown text color */
+    background-color: #333;
+    color: #fff;
 }
 
-/* Select dropdown option styles */
 body.dark-theme option {
-    background-color: #333; /* Dropdown option background color */
-    color: #fff; /* Dropdown option text color */
+    background-color: #333;
+    color: #fff;
 }
 
-/* Form button styles */
 body.dark-theme input[type="submit"] {
-    background-color: #333; /* Button background color */
-    color: #fff; /* Button text color */
+    background-color: #333;
+    color: #fff;
 }
 
-/* Plotly plot styles */
 body.dark-theme #plot {
-    background-color: #333; /* Plot background color */
+    background-color: #333;
 }
 
-/* Tag history plot styles */
 body.dark-theme img {
-    border: 1px solid #fff; /* Border color for history plot image */
+    border: 1px solid #fff;
 }
 
-/* CSS for the content wrapper */
 .content-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-/* CSS for tag counts */
 .tag-counts {
-    flex-basis: 45%; /* Adjust width as needed */
-    margin-right: 20px; /* Add some spacing between elements */
-}
-
-/* CSS for the plot bar */
-.bar-plot {
-    flex-basis: 50%; /* Adjust width as needed */
-}
-.tag-counts {
+    flex-basis: 45%;
+    margin-right: 20px;
     display: inline-block;
     max-width: max-content;
-    margin-right: 20px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color:#1f1f1f;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bar-plot {
+    width: 100%; /* Set the width to occupy the entire space */
+    height: 600px; /* Set the height as needed */
+    margin: 0 auto; /* Center the plot horizontally */
+}
+
+
+/* CSS styles for the navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #1f1f1f; /* Dark background color */
+}
+
+.logo img {
+    height: 40px; /* Adjust logo height as needed */
+    margin-right: 10px; /* Add spacing between logo and text */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/* CSS styles for the back button */
+.back-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none; /* Remove default link underline */
+}
+
+.back-button:hover {
+    background-color: #555; /* Darker background color on hover */
+}
+.past{
+    display: flex;
+    /* flex-direction: s */
+    align-items: center;
+
+}
+.tag-history{
+    padding: 10px;
 }

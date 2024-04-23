@@ -17,11 +17,22 @@
     </style>
 </head>
 <body class="dark-theme">
+    <div class="navbar">
+        <!-- Back button -->
+        <a href="{% url 'home' %}" class="back-button">Back</a>
+        <!-- Logo -->
+        <div class="logo">
+            <img src="{% static 'dist/images/logo.svg' %}" alt="Logo">
+            Trendmia
+        </div>
+    </div>    
     <div class="container">
-        <h1>Trending Page</h1>
+        <div class="page-header">
+            <h1>See What's Trending:</h1>
+        </div>            
         <div class="content-wrapper">
             <!-- Display the tag counts table -->
-            <div class="tag-counts">
+            <!-- <div class="tag-counts">
                 <h2>Latest Trend in Tags:</h2>
                 <table>
                     <thead>
@@ -39,26 +50,13 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>
+            </div> -->
 
             <!-- Display the bar plot -->
             <div class="bar-plot" id="plot"></div>
         </div>
 
-        <!-- Form for selecting a tag -->
-        <div class="tag-selection-form">
-            <form method="POST">
-                {% csrf_token %}
-                <label for="tag_dropdown">Select Tag:</label>
-                <select name="tag_dropdown" id="tag_dropdown">
-                    {% for tag, _ in tag_counts %}
-                    <option value="{{ tag }}">{{ tag }}</option>
-                    {% endfor %}
-                </select>
-                <input type="submit" value="Submit">
-            </form>
-        </div>
-
+        
         <!-- Display the selected tag history plot -->
         <div class="tag-history">
             {% if selected_tag %}
@@ -68,9 +66,61 @@
             </div>
             {% endif %}
         </div>
+
+        <!-- Predefined Tag History Plots -->
+        <div class="predefined-tag-history">
+            <h2>Predefined Tag History Plots:</h2>
+            <div class="past">
+                <div class="tag-history">
+                    <h3>History of "Data Science" Over Past Months:</h3>
+                    <div>
+                        <img src="{% static 'dist/images/tag_history_plot_data_science.png' %}"
+                            alt="Data Science Tag History Plot">
+                    </div>
+                </div>
+
+                <div class="tag-history">
+                    <h3>History of "AI" Over Past Months:</h3>
+                    <div>
+                        <img src="{% static 'dist/images/tag_history_plot_ai.png' %}" alt="AI Tag History Plot">
+                    </div>
+                </div>
+            </div>
+            <div class="past">
+
+                <div class="tag-history">
+                    <h3>History of "App Development" Over Past Months:</h3>
+                    <div>
+                        <img src="{% static 'dist/images/tag_history_plot_app_development.png' %}"
+                            alt="App Development Tag History Plot">
+                    </div>
+                </div>
+                <div class="tag-history">
+                    <h3>History of "AR/VR" Over Past Months:</h3>
+                    <div>
+                        <img src="{% static 'dist/images/tag_history_plot_ar_vr.png' %}"
+                            alt="App Development Tag History Plot">
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Script for plotting the bar graph -->
+    <!-- Form for selecting a tag -->
+    <div class="tag-selection-form">
+        <form method="POST">
+            {% csrf_token %}
+            <label for="tag_dropdown">Select Tag:</label>
+            <select name="tag_dropdown" id="tag_dropdown">
+                {% for tag, _ in tag_counts %}
+                <option value="{{ tag }}">{{ tag }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
     <script>
         // Extract tag names and counts from Django template variables
         const tags = [{% for tag, count in tag_counts %}'{{ tag }}',{% endfor %}];
@@ -92,7 +142,7 @@
             const blue = Math.round(60 * (1 - normalizedCount));
             return `rgb(${red}, ${green}, ${blue})`; // RGB color
         });
-
+        
         // Plot the bar graph
         Plotly.newPlot('plot', [{
             x: counts, // Use counts for the vertical bar lengths

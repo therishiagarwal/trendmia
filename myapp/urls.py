@@ -9,7 +9,7 @@ from myapp.forms import UserLoginForm
 
 
 urlpatterns = [
-    path("", views.index, name='hoame'),
+    path("", views.index, name='home'),
     path("about/", views.about, name='about'),
     path("contact/", views.contact, name='contact'),
     path('signup/', views.signup, name='signup'),
