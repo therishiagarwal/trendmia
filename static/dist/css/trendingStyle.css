@@ -1,0 +1,77 @@
+/* trendingStyle.css  */
+
+/* Dark theme styles */
+body.dark-theme {
+    background-color: #1f1f1f; /* Dark background color */
+    color: #fff; /* Text color */
+}
+
+/* Table styles */
+body.dark-theme table {
+    color: #fff; /* Table text color */
+}
+
+/* Table header styles */
+body.dark-theme table th {
+    background-color: #333; /* Header background color */
+}
+
+/* Table row styles */
+body.dark-theme table tr:nth-child(even) {
+    background-color: #333; /* Even row background color */
+}
+
+/* Select dropdown styles */
+body.dark-theme select {
+    background-color: #333; /* Dropdown background color */
+    color: #fff; /* Dropdown text color */
+}
+
+/* Select dropdown option styles */
+body.dark-theme option {
+    background-color: #333; /* Dropdown option background color */
+    color: #fff; /* Dropdown option text color */
+}
+
+/* Form button styles */
+body.dark-theme input[type="submit"] {
+    background-color: #333; /* Button background color */
+    color: #fff; /* Button text color */
+}
+
+/* Plotly plot styles */
+body.dark-theme #plot {
+    background-color: #333; /* Plot background color */
+}
+
+/* Tag history plot styles */
+body.dark-theme img {
+    border: 1px solid #fff; /* Border color for history plot image */
+}
+
+/* CSS for the content wrapper */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* CSS for tag counts */
+.tag-counts {
+    flex-basis: 45%; /* Adjust width as needed */
+    margin-right: 20px; /* Add some spacing between elements */
+}
+
+/* CSS for the plot bar */
+.bar-plot {
+    flex-basis: 50%; /* Adjust width as needed */
+}
+.tag-counts {
+    display: inline-block;
+    max-width: max-content;
+    margin-right: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

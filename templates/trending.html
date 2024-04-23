@@ -1,8 +1,13 @@
+<!-- trending.html  -->
+
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Trending Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'dist/css/trendingStyle.css' %}">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
         #plot {
@@ -11,32 +16,59 @@
         }
     </style>
 </head>
-<body>
-    <h1>Trending Page</h1>
+<body class="dark-theme">
+    <div class="container">
+        <h1>Trending Page</h1>
+        <div class="content-wrapper">
+        <!-- Display the tag counts table -->
+        <div class="tag-counts">
+            <h2>Latest Trend in Tags:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tag</th>
+                        <th>Weighted Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tag, count in tag_counts %}
+                    <tr>
+                        <td>{{ tag }}</td>
+                        <td>{{ count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    
+        <!-- Display the bar plot -->
+        <div class="bar-plot" id="plot"></div>
+        </div>
 
-    <!-- Display the tag counts table -->
-    <h2>Latest Trend in Tags:</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Tag</th>
-                <th>Weighted Count</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for tag, count in tag_counts %}
-            <tr>
-                <td>{{ tag }}</td>
-                <td>{{ count }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <!-- Form for selecting a tag -->
+        <div class="tag-selection-form">
+            <form method="POST">
+                {% csrf_token %}
+                <label for="tag_dropdown">Select Tag:</label>
+                <select name="tag_dropdown" id="tag_dropdown">
+                    {% for tag, _ in tag_counts %}
+                    <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
 
-    <!-- Display the bar plot -->
-    <div id="plot"></div>
+        <!-- Display the selected tag history plot -->
+        <div class="tag-history">
+            {% if selected_tag %}
+            <h2>History of Tag "{{ selected_tag }}" Over Past Months:</h2>
+            <div>
+                <img src="{% static 'dist/images/tag_history_plot.png' %}" alt="Tag History Plot">
+            </div>
+            {% endif %}
+        </div>
+    </div>
 
     <!-- Script for plotting the bar graph -->
     <script>
@@ -56,40 +88,6 @@
             orientation: 'h' // Set orientation to horizontal
         }]);
     </script>
+
 </body>
 </html>
-
-
-
-
-    <!-- Input field for tag selection -->
-<h2>Select Tag:</h2>
-<select id="tagSelect">
-    <option value="" disabled selected>Select a tag</option>
-    {% for tag, count in tag_counts %}
-    <option value="{{ tag }}">{{ tag }}</option>
-    {% endfor %}
-</select>
-
-<!-- Div to display the plot -->
-<div id="plot"></div>
-
-<!-- Script for updating the plot based on dropdown selection -->
-<script>
-    const tagSelect = document.getElementById('tagSelect');
-    const plotDiv = document.getElementById('plot');
-
-    tagSelect.addEventListener('change', function() {
-        const tag = this.value;
-        if (!tag) return; // Exit if no tag selected
-
-        // Fetch data for the selected tag and update the plot
-        fetch(`/get_tag_history/?tag=${tag}`)
-            .then(response => response.json())
-            .then(data => {
-                // Update the plot using Plotly or any other library
-                Plotly.newPlot(plotDiv, data);
-            })
-            .catch(error => console.error('Error:', error));
-    });
-</script>

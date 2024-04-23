@@ -11,7 +11,15 @@ from datetime import datetime
 import supabase
 from .models import Tag,Project
 from django.utils import timezone
-import pytz
+from django.shortcuts import render
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import ipywidgets as widgets
+
+from .models import ChatMessage
+from .models import ChatMessage, CustomUser, Project  
 
 # Initialize Supabase client
 supabase_url = 'https://oypasfbahsankiotfziv.supabase.co'
@@ -76,11 +84,39 @@ def logout_view(request):
 def about(request):
     return HttpResponse("This is about page")
 
-from django.shortcuts import render
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import ipywidgets as widgets
+
+def plot_tag_history(tag):
+    data = pd.read_excel('projects.xlsx', sheet_name='Sheet1')
+
+    # Convert 'date/timestamp' column to datetime
+    data['date/timestamp'] = pd.to_datetime(data['date/timestamp'])
+
+    # Extract month and year from the 'date/timestamp' column
+    data['month_year'] = data['date/timestamp'].dt.to_period('M')
+
+    # Split tags and convert them to lists
+    data['tags'] = data['tags'].str.split(', ')
+
+    if tag in data['tags'].sum():
+        # Prepare data for the specified tag
+        tag_history = data[data['tags'].apply(lambda x: tag in x)]
+        tag_history_counts = tag_history.groupby('month_year').size()
+
+        # Plotting tag history
+        plt.figure(figsize=(6, 4))
+        tag_history_counts.plot(kind='line', color='r', linewidth=2)
+        plt.xlabel('MonthYear')
+        plt.ylabel('Occurrences')
+        plt.title(f'History of Tag "{tag}" Over Past Months')
+        plt.xticks(rotation=45)
+        plt.grid(True, linestyle='--', alpha=0.5)
+        plt.tight_layout()
+        plt.legend().set_visible(False)
+        # In your plot_tag_history function
+        plt.savefig('static/dist/images/tag_history_plot.png')  # Save the plot to a static file
+        plt.close()
+    else:
+        print("Tag not found in the data.")
 
 def trending(request):
     # Load and process data
@@ -100,17 +136,16 @@ def trending(request):
     # Sort tag counts
     tag_counts_sorted = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)
 
-    # Dropdown widget for tag selection
-    tag_dropdown = widgets.Dropdown(
-        options=list(tag_counts.keys()),
-        description='Select Tag:',
-        disabled=False
-    )
-
     context = {
         'tag_counts': tag_counts_sorted,
-        'tag_dropdown': tag_dropdown
     }
+
+    if request.method == 'POST':
+        # Get selected tag from the form
+        selected_tag = request.POST.get('tag_dropdown', None)
+        if selected_tag:
+            plot_tag_history(selected_tag)
+            context['selected_tag'] = selected_tag
 
     return render(request, 'trending.html', context)
 
@@ -189,15 +224,7 @@ def post_project(request):
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
     
-from django.shortcuts import render
 
-# views.py
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from .models import ChatMessage
-from .models import ChatMessage, CustomUser, Project  # Import the Project model
-from .models import ChatMessage, CustomUser, Project  # Import the Project model
 
 @login_required
 def chat_page(request, username):
@@ -222,9 +249,6 @@ def chat_page(request, username):
         return HttpResponse("User not found")
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .models import ChatMessage, Project
 
 @login_required
 def some_view_function(request):
