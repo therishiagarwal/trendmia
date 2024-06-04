@@ -57,16 +57,7 @@
         </div>
 
         
-        <!-- Display the selected tag history plot -->
-        <div class="tag-history">
-            {% if selected_tag %}
-            <h2>History of Tag "{{ selected_tag }}" Over Past Months:</h2>
-            <div>
-                <img src="{% static 'dist/images/tag_history_plot.png' %}" alt="Tag History Plot">
-            </div>
-            {% endif %}
-        </div>
-
+        
         <!-- Predefined Tag History Plots -->
         <div class="predefined-tag-history">
             <h2>Predefined Tag History Plots:</h2>
@@ -75,7 +66,7 @@
                     <h3>History of "Data Science" Over Past Months:</h3>
                     <div>
                         <img src="{% static 'dist/images/tag_history_plot_data_science.png' %}"
-                            alt="Data Science Tag History Plot">
+                        alt="Data Science Tag History Plot">
                     </div>
                 </div>
 
@@ -87,12 +78,12 @@
                 </div>
             </div>
             <div class="past">
-
+                
                 <div class="tag-history">
                     <h3>History of "App Development" Over Past Months:</h3>
                     <div>
                         <img src="{% static 'dist/images/tag_history_plot_app_development.png' %}"
-                            alt="App Development Tag History Plot">
+                        alt="App Development Tag History Plot">
                     </div>
                 </div>
                 <div class="tag-history">
@@ -121,11 +112,20 @@
             <input type="submit" value="Submit">
         </form>
     </div>
+    <!-- Display the selected tag history plot -->
+    <div class="tag-history">
+        {% if selected_tag %}
+        <h2>History of Tag "{{ selected_tag }}" Over Past Months:</h2>
+        <div>
+            <img src="{% static 'dist/images/tag_history_plot.png' %}" alt="Tag History Plot">
+        </div>
+        {% endif %}
+    </div>
     <script>
         // Extract tag names and counts from Django template variables
         const tags = [{% for tag, count in tag_counts %}'{{ tag }}',{% endfor %}];
         const counts = [{% for tag, count in tag_counts %}{{ count }},{% endfor %}];
-
+        
         // Reverse the order of the arrays
         tags.reverse();
         counts.reverse();
